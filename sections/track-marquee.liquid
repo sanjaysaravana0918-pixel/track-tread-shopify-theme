@@ -1,0 +1,282 @@
+<section
+  id="TrackMarquee-{{ section.id }}"
+  class="track-marquee"
+  style="
+    --marquee-bg: {{ section.settings.background_color }};
+    --marquee-text: {{ section.settings.text_color }};
+    --marquee-speed: {{ section.settings.speed }}s;
+  "
+>
+  <div class="track-marquee__viewport">
+    <div class="track-marquee__track">
+      {% for repeat in (1..2) %}
+        <div class="track-marquee__group" aria-hidden="{% if repeat == 2 %}true{% else %}false{% endif %}">
+          {% for block in section.blocks %}
+            <div class="track-marquee__item" {{ block.shopify_attributes }}>
+              {% if block.settings.badge != blank %}
+                <span class="track-marquee__badge">{{ block.settings.badge }}</span>
+              {% endif %}
+
+              <span class="track-marquee__text">
+                {{ block.settings.text }}
+              </span>
+
+              <span class="track-marquee__separator" aria-hidden="true">
+                {% case section.settings.separator_style %}
+                  {% when 'dot' %}
+                    ●
+                  {% when 'plus' %}
+                    +
+                  {% when 'arrow' %}
+                    ↗
+                  {% else %}
+                    •
+                {% endcase %}
+              </span>
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #TrackMarquee-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: var(--marquee-bg);
+    color: var(--marquee-text);
+    border-top: 1px solid rgba(0,0,0,.9);
+    border-bottom: 1px solid rgba(0,0,0,.9);
+  }
+
+  #TrackMarquee-{{ section.id }} .track-marquee__viewport {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  #TrackMarquee-{{ section.id }} .track-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: track-marquee-scroll var(--marquee-speed) linear infinite;
+    will-change: transform;
+  }
+
+  #TrackMarquee-{{ section.id }} .track-marquee__group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  #TrackMarquee-{{ section.id }} .track-marquee__item {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-height: 74px;
+    padding: 0 10px;
+    white-space: nowrap;
+  }
+
+  #TrackMarquee-{{ section.id }} .track-marquee__text {
+    font-size: clamp(24px, 2vw, 42px);
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -.045em;
+  }
+
+  #TrackMarquee-{{ section.id }} .track-marquee__separator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 28px;
+    font-size: clamp(18px, 1.5vw, 30px);
+    line-height: 1;
+    opacity: .9;
+  }
+
+  #TrackMarquee-{{ section.id }} .track-marquee__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 14px;
+    padding: 7px 10px 6px;
+    border: 1px solid currentColor;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  {% if section.settings.pause_on_hover %}
+    #TrackMarquee-{{ section.id }}:hover .track-marquee__track {
+      animation-play-state: paused;
+    }
+  {% endif %}
+
+  @keyframes track-marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #TrackMarquee-{{ section.id }} .track-marquee__item {
+      min-height: 58px;
+    }
+
+    #TrackMarquee-{{ section.id }} .track-marquee__text {
+      font-size: 24px;
+    }
+
+    #TrackMarquee-{{ section.id }} .track-marquee__separator {
+      margin: 0 18px;
+      font-size: 18px;
+    }
+
+    #TrackMarquee-{{ section.id }} .track-marquee__badge {
+      margin-right: 10px;
+      padding: 6px 8px 5px;
+      font-size: 9px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #TrackMarquee-{{ section.id }} .track-marquee__track {
+      animation: none;
+      transform: none;
+    }
+
+    #TrackMarquee-{{ section.id }} .track-marquee__viewport {
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    #TrackMarquee-{{ section.id }} .track-marquee__viewport::-webkit-scrollbar {
+      display: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Track Marquee",
+  "tag": "section",
+  "class": "track-marquee-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#C7FF00"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Scroll speed",
+      "min": 12,
+      "max": 60,
+      "step": 2,
+      "unit": "s",
+      "default": 28
+    },
+    {
+      "type": "select",
+      "id": "separator_style",
+      "label": "Separator style",
+      "options": [
+        {
+          "value": "bullet",
+          "label": "Bullet"
+        },
+        {
+          "value": "dot",
+          "label": "Solid dot"
+        },
+        {
+          "value": "plus",
+          "label": "Plus"
+        },
+        {
+          "value": "arrow",
+          "label": "Arrow"
+        }
+      ],
+      "default": "bullet"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Small badge",
+          "default": "NEW"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Message",
+          "default": "FREE SHIPPING ON ORDERS OVER $100"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Track Marquee",
+      "blocks": [
+        {
+          "type": "message",
+          "settings": {
+            "badge": "NEW",
+            "text": "FREE SHIPPING ON ORDERS OVER $100"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "badge": "DROP 01",
+            "text": "LIMITED EDITION COLLECTION LIVE NOW"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "badge": "EASY",
+            "text": "30 DAY RETURNS ON ALL ORDERS"
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "badge": "MOVE",
+            "text": "BUILT FOR EVERYDAY MOTION"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

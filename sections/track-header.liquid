@@ -1,0 +1,359 @@
+<style>
+  .track-header {
+    width: 100%;
+    background: #f3f3f3;
+    border-bottom: 1px solid #111;
+    position: relative;
+    z-index: 40;
+  }
+
+  .track-header__inner {
+    min-height: 60px;
+    display: grid;
+    grid-template-columns: 1.4fr 4fr 2.2fr;
+    align-items: center;
+    width: 100%;
+  }
+
+  .track-header__logo {
+    padding: 0 24px;
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -2px;
+    color: #000;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .track-header__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+  }
+
+  .track-header__nav a,
+  .track-header__actions a,
+  .track-header__actions button {
+    color: #000;
+    text-decoration: none;
+    font: inherit;
+    font-size: 21px;
+    line-height: 1;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 19px 16px;
+  }
+
+  .track-header__nav a,
+  .track-header__actions a {
+    position: relative;
+  }
+
+  .track-header__nav a::after,
+  .track-header__actions a::after {
+    content: "";
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 13px;
+    height: 1px;
+    background: #000;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .25s ease;
+  }
+
+  .track-header__nav a:hover::after,
+  .track-header__actions a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .track-header__actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    padding-right: 8px;
+  }
+
+  .track-header__menu-toggle {
+    display: none;
+  }
+
+  .track-header__mobile-panel {
+    display: none;
+  }
+
+  @media (max-width: 989px) {
+    .track-header__inner {
+      grid-template-columns: 1fr auto;
+      min-height: 64px;
+    }
+
+    .track-header__logo {
+      font-size: 25px;
+      padding: 0 18px;
+    }
+
+    .track-header__nav,
+    .track-header__actions .track-header__desktop-only {
+      display: none;
+    }
+
+    .track-header__actions {
+      padding-right: 10px;
+      gap: 0;
+    }
+
+    .track-header__actions a {
+      font-size: 16px;
+      padding: 22px 8px;
+    }
+
+    .track-header__menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      padding: 0 !important;
+    }
+
+    .track-header__menu-toggle svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .track-header__mobile-panel {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: #f3f3f3;
+      padding: 20px;
+      transform: translateX(100%);
+      transition: transform .35s ease;
+      display: block;
+    }
+
+    .track-header__mobile-panel.is-open {
+      transform: translateX(0);
+    }
+
+    .track-header__mobile-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #000;
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+    }
+
+    .track-header__mobile-logo {
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: -2px;
+    }
+
+    .track-header__mobile-close {
+      appearance: none;
+      border: 0;
+      background: none;
+      font-size: 34px;
+      cursor: pointer;
+    }
+
+    .track-header__mobile-nav {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .track-header__mobile-nav a {
+      color: #000;
+      text-decoration: none;
+      font-size: clamp(34px, 10vw, 60px);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      padding: 10px 0;
+    }
+
+    .track-header__mobile-links {
+      margin-top: 35px;
+      border-top: 1px solid #000;
+      padding-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .track-header__mobile-links a {
+      color: #000;
+      text-decoration: none;
+      font-size: 18px;
+    }
+  }
+</style>
+
+<header class="track-header">
+  <div class="track-header__inner">
+
+    <a href="{{ routes.root_url }}" class="track-header__logo">
+      {{ section.settings.logo_text }}
+    </a>
+
+    <nav class="track-header__nav" aria-label="Main navigation">
+      {% if section.settings.menu != blank %}
+        {% for link in section.settings.menu.links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      {% else %}
+        <a href="/collections/all">Shop</a>
+        <a href="/blogs/news">Journal</a>
+        <a href="/pages/about">About</a>
+      {% endif %}
+    </nav>
+
+    <div class="track-header__actions">
+      <a href="{{ routes.search_url }}" class="track-header__desktop-only">Search</a>
+
+      {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+          <a href="{{ routes.account_url }}" class="track-header__desktop-only">Account</a>
+        {% else %}
+          <a href="{{ routes.account_login_url }}" class="track-header__desktop-only">Log In</a>
+        {% endif %}
+      {% endif %}
+
+      <a href="{{ routes.cart_url }}">
+        Cart ({{ cart.item_count }})
+      </a>
+
+      <button
+        type="button"
+        class="track-header__menu-toggle"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="TrackMobileMenu"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="TrackMobileMenu"
+    class="track-header__mobile-panel"
+    aria-hidden="true"
+  >
+    <div class="track-header__mobile-top">
+      <span class="track-header__mobile-logo">
+        {{ section.settings.logo_text }}
+      </span>
+
+      <button
+        type="button"
+        class="track-header__mobile-close"
+        aria-label="Close menu"
+      >
+        ×
+      </button>
+    </div>
+
+    <nav class="track-header__mobile-nav">
+      {% if section.settings.menu != blank %}
+        {% for link in section.settings.menu.links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      {% else %}
+        <a href="/collections/all">Shop</a>
+        <a href="/blogs/news">Journal</a>
+        <a href="/pages/about">About</a>
+      {% endif %}
+    </nav>
+
+    <div class="track-header__mobile-links">
+      <a href="{{ routes.search_url }}">Search</a>
+
+      {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+          <a href="{{ routes.account_url }}">Account</a>
+        {% else %}
+          <a href="{{ routes.account_login_url }}">Log In</a>
+        {% endif %}
+      {% endif %}
+
+      <a href="{{ routes.cart_url }}">
+        Cart ({{ cart.item_count }})
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  (() => {
+    const section = document.currentScript.closest('.shopify-section');
+    if (!section) return;
+
+    const openButton = section.querySelector('.track-header__menu-toggle');
+    const closeButton = section.querySelector('.track-header__mobile-close');
+    const panel = section.querySelector('.track-header__mobile-panel');
+
+    if (!openButton || !closeButton || !panel) return;
+
+    const openMenu = () => {
+      panel.classList.add('is-open');
+      panel.setAttribute('aria-hidden', 'false');
+      openButton.setAttribute('aria-expanded', 'true');
+      document.documentElement.style.overflow = 'hidden';
+    };
+
+    const closeMenu = () => {
+      panel.classList.remove('is-open');
+      panel.setAttribute('aria-hidden', 'true');
+      openButton.setAttribute('aria-expanded', 'false');
+      document.documentElement.style.overflow = '';
+    };
+
+    openButton.addEventListener('click', openMenu);
+    closeButton.addEventListener('click', closeMenu);
+
+    panel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMenu();
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Track Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "TRACK&TREAD"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Track Header"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1060 @@
+<section
+  id="TrackBrandStory-{{ section.id }}"
+  class="track-brand-story"
+  style="
+    --tbs-bg: {{ section.settings.background_color }};
+    --tbs-text: {{ section.settings.text_color }};
+    --tbs-accent: {{ section.settings.accent_color }};
+  "
+>
+
+  <div class="tbs-main">
+
+    <div class="tbs-copy">
+
+      {% if section.settings.eyebrow != blank %}
+        <div class="tbs-eyebrow">
+          <span class="tbs-eyebrow-line"></span>
+          <span>{{ section.settings.eyebrow }}</span>
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="tbs-heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="tbs-description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.button_label != blank %}
+        <a
+          class="tbs-button"
+          {% if section.settings.button_link != blank %}
+            href="{{ section.settings.button_link }}"
+          {% else %}
+            role="link"
+            aria-disabled="true"
+          {% endif %}
+        >
+          <span>{{ section.settings.button_label }}</span>
+          <span class="tbs-button-arrow">↗</span>
+        </a>
+      {% endif %}
+
+      <div class="tbs-meta">
+        <span>TRACK&TREAD</span>
+        <span>PERFORMANCE / 2026</span>
+      </div>
+
+    </div>
+
+
+    <div class="tbs-visual">
+
+      {% if section.settings.image != blank %}
+        {{
+          section.settings.image
+          | image_url: width: 2200
+          | image_tag:
+            class: 'tbs-image',
+            loading: 'lazy',
+            widths: '700, 1000, 1400, 1800, 2200',
+            sizes: '(min-width: 990px) 62vw, 100vw',
+            alt: section.settings.image.alt
+        }}
+      {% else %}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'tbs-placeholder' }}
+      {% endif %}
+
+      <div class="tbs-overlay"></div>
+
+      <div class="tbs-badge tbs-badge--top">
+        <span class="tbs-badge-number">01</span>
+        <span>{{ section.settings.label_one }}</span>
+      </div>
+
+      <div class="tbs-badge tbs-badge--middle">
+        <span class="tbs-badge-number">02</span>
+        <span>{{ section.settings.label_two }}</span>
+      </div>
+
+      <div class="tbs-badge tbs-badge--bottom">
+        <span class="tbs-badge-number">03</span>
+        <span>{{ section.settings.label_three }}</span>
+      </div>
+
+      <div class="tbs-circle">
+        <span>MOVE</span>
+        <span>DAILY</span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  {% if section.settings.show_statement %}
+    <div class="tbs-statement">
+
+      <div class="tbs-statement-left">
+        {{ section.settings.statement_small }}
+      </div>
+
+      <div class="tbs-statement-right">
+        {{ section.settings.statement_large }}
+      </div>
+
+    </div>
+  {% endif %}
+
+
+  {% if section.settings.show_marquee %}
+    <div class="tbs-marquee">
+
+      <div class="tbs-marquee-track">
+
+        {% for repeat in (1..2) %}
+          <div class="tbs-marquee-group">
+
+            <span>PERFORMANCE</span>
+            <span class="tbs-dot">✦</span>
+
+            <span>COMFORT</span>
+            <span class="tbs-dot">✦</span>
+
+            <span>MOVEMENT</span>
+            <span class="tbs-dot">✦</span>
+
+            <span>EVERYDAY</span>
+            <span class="tbs-dot">✦</span>
+
+          </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  {% endif %}
+
+</section>
+
+
+<style>
+
+#TrackBrandStory-{{ section.id }} {
+  background: var(--tbs-bg);
+  color: var(--tbs-text);
+  overflow: hidden;
+}
+
+
+/* =========================
+   MAIN GRID
+========================= */
+
+#TrackBrandStory-{{ section.id }} .tbs-main {
+
+  display: grid;
+
+  grid-template-columns: 38% 62%;
+
+  min-height: 860px;
+
+  border-top: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+}
+
+
+/* =========================
+   LEFT COPY
+========================= */
+
+#TrackBrandStory-{{ section.id }} .tbs-copy {
+
+  position: relative;
+
+  padding: 64px 34px 34px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-end;
+
+  background: var(--tbs-bg);
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-eyebrow {
+
+  position: absolute;
+
+  top: 34px;
+  left: 34px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: .17em;
+
+  text-transform: uppercase;
+
+  opacity: .55;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-eyebrow-line {
+
+  display: block;
+
+  width: 42px;
+  height: 1px;
+
+  background: currentColor;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-heading {
+
+  margin: 0;
+
+  max-width: 620px;
+
+  font-size: clamp(70px, 7.2vw, 132px);
+
+  line-height: .82;
+
+  font-weight: 500;
+
+  letter-spacing: -.075em;
+
+  white-space: pre-line;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-description {
+
+  max-width: 440px;
+
+  margin-top: 30px;
+
+  font-size: 17px;
+
+  line-height: 1.45;
+
+  opacity: .72;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-description p {
+
+  margin: 0;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+#TrackBrandStory-{{ section.id }} .tbs-button {
+
+  width: fit-content;
+
+  min-width: 185px;
+
+  min-height: 58px;
+
+  margin-top: 30px;
+
+  padding: 0 16px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 30px;
+
+  border: 1px solid #000;
+
+  background: #000;
+
+  color: #fff;
+
+  text-decoration: none;
+
+  font-size: 12px;
+
+  letter-spacing: .05em;
+
+  text-transform: uppercase;
+
+  transition:
+    background .25s ease,
+    color .25s ease,
+    transform .25s ease;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-button:hover {
+
+  background: var(--tbs-accent);
+
+  color: #000;
+
+  transform: translateY(-3px);
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-button-arrow {
+
+  font-size: 19px;
+
+  transition: transform .25s ease;
+}
+
+
+#TrackBrandStory-{{ section.id }}
+.tbs-button:hover
+.tbs-button-arrow {
+
+  transform: translate(3px,-3px);
+}
+
+
+/* =========================
+   META
+========================= */
+
+#TrackBrandStory-{{ section.id }} .tbs-meta {
+
+  margin-top: 45px;
+
+  padding-top: 18px;
+
+  border-top: 1px solid rgba(0,0,0,.25);
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  font-size: 8px;
+
+  letter-spacing: .15em;
+
+  text-transform: uppercase;
+
+  opacity: .45;
+}
+
+
+/* =========================
+   VISUAL
+========================= */
+
+#TrackBrandStory-{{ section.id }} .tbs-visual {
+
+  position: relative;
+
+  overflow: hidden;
+
+  min-height: 860px;
+
+  background: #111;
+
+  border-left: 1px solid currentColor;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-image,
+#TrackBrandStory-{{ section.id }} .tbs-placeholder {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    transform 1.2s cubic-bezier(.2,.7,.2,1),
+    filter .5s ease;
+}
+
+
+@media (hover:hover) {
+
+  #TrackBrandStory-{{ section.id }}
+  .tbs-visual:hover
+  .tbs-image {
+
+    transform: scale(1.04);
+
+    filter: saturate(1.05);
+  }
+
+}
+
+
+/* =========================
+   IMAGE OVERLAY
+========================= */
+
+#TrackBrandStory-{{ section.id }} .tbs-overlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.06) 0%,
+      rgba(0,0,0,.08) 50%,
+      rgba(0,0,0,.44) 100%
+    );
+}
+
+
+/* =========================
+   FLOATING BADGES
+========================= */
+
+#TrackBrandStory-{{ section.id }} .tbs-badge {
+
+  position: absolute;
+
+  z-index: 3;
+
+  min-width: 180px;
+
+  min-height: 48px;
+
+  padding: 0 14px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  background: rgba(255,255,255,.92);
+
+  color: #000;
+
+  border: 1px solid rgba(0,0,0,.35);
+
+  backdrop-filter: blur(8px);
+
+  font-size: 10px;
+
+  letter-spacing: .12em;
+
+  text-transform: uppercase;
+
+  transition:
+    transform .35s ease,
+    background .35s ease;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-badge--top {
+
+  top: 12%;
+  left: 5%;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-badge--middle {
+
+  top: 46%;
+  right: 6%;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-badge--bottom {
+
+  bottom: 9%;
+  left: 11%;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-badge-number {
+
+  font-size: 8px;
+
+  opacity: .45;
+}
+
+
+@media (hover:hover) {
+
+  #TrackBrandStory-{{ section.id }}
+  .tbs-visual:hover
+  .tbs-badge--top {
+
+    transform: translate(8px,-8px);
+  }
+
+  #TrackBrandStory-{{ section.id }}
+  .tbs-visual:hover
+  .tbs-badge--middle {
+
+    transform: translate(-8px,4px);
+  }
+
+  #TrackBrandStory-{{ section.id }}
+  .tbs-visual:hover
+  .tbs-badge--bottom {
+
+    transform: translate(8px,6px);
+  }
+
+}
+
+
+/* =========================
+   CIRCLE STAMP
+========================= */
+
+#TrackBrandStory-{{ section.id }} .tbs-circle {
+
+  position: absolute;
+
+  right: 26px;
+  bottom: 26px;
+
+  z-index: 3;
+
+  width: 110px;
+  height: 110px;
+
+  border-radius: 50%;
+
+  border: 1px solid #fff;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 2px;
+
+  color: #fff;
+
+  font-size: 10px;
+
+  letter-spacing: .15em;
+
+  text-transform: uppercase;
+
+  transform: rotate(-8deg);
+
+  transition:
+    background .3s ease,
+    color .3s ease,
+    transform .3s ease;
+}
+
+
+@media (hover:hover) {
+
+  #TrackBrandStory-{{ section.id }}
+  .tbs-circle:hover {
+
+    background: var(--tbs-accent);
+
+    color: #000;
+
+    border-color: var(--tbs-accent);
+
+    transform: rotate(0deg);
+  }
+
+}
+
+
+/* =========================
+   STATEMENT STRIP
+========================= */
+
+#TrackBrandStory-{{ section.id }} .tbs-statement {
+
+  display: grid;
+
+  grid-template-columns: 34% 66%;
+
+  border-bottom: 1px solid currentColor;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-statement-left {
+
+  padding: 40px 28px;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  border-right: 1px solid currentColor;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+
+  letter-spacing: .14em;
+
+  text-transform: uppercase;
+
+  opacity: .55;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-statement-right {
+
+  padding: 38px 28px 44px;
+
+  font-size: clamp(40px, 4vw, 76px);
+
+  line-height: .98;
+
+  letter-spacing: -.05em;
+
+  font-weight: 500;
+}
+
+
+/* =========================
+   MARQUEE
+========================= */
+
+#TrackBrandStory-{{ section.id }} .tbs-marquee {
+
+  overflow: hidden;
+
+  background: var(--tbs-accent);
+
+  color: #000;
+
+  border-bottom: 1px solid #000;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-marquee-track {
+
+  display: flex;
+
+  width: max-content;
+
+  animation:
+    tbs-marquee-{{ section.id }}
+    28s linear infinite;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-marquee-group {
+
+  display: flex;
+
+  flex-shrink: 0;
+
+  align-items: center;
+
+  min-height: 70px;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-marquee-group span {
+
+  white-space: nowrap;
+
+  font-size: clamp(24px, 2vw, 40px);
+
+  line-height: 1;
+
+  letter-spacing: -.04em;
+}
+
+
+#TrackBrandStory-{{ section.id }} .tbs-dot {
+
+  margin: 0 26px;
+}
+
+
+@keyframes tbs-marquee-{{ section.id }} {
+
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media screen and (max-width: 989px) {
+
+  #TrackBrandStory-{{ section.id }} .tbs-main {
+
+    grid-template-columns: 1fr;
+
+    min-height: 0;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-copy {
+
+    min-height: 620px;
+
+    padding: 70px 22px 28px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-eyebrow {
+
+    top: 26px;
+    left: 22px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-visual {
+
+    min-height: 720px;
+
+    border-left: 0;
+
+    border-top: 1px solid currentColor;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-statement {
+
+    grid-template-columns: 1fr;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-statement-left {
+
+    border-right: 0;
+
+    border-bottom: 1px solid currentColor;
+
+    padding: 26px 20px;
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media screen and (max-width: 749px) {
+
+  #TrackBrandStory-{{ section.id }} .tbs-copy {
+
+    min-height: 580px;
+
+    padding:
+      66px 16px
+      24px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-eyebrow {
+
+    top: 24px;
+    left: 16px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-heading {
+
+    font-size:
+      clamp(58px, 17vw, 82px);
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-description {
+
+    font-size: 15px;
+
+    max-width: 92%;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-meta {
+
+    flex-direction: column;
+
+    gap: 5px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-visual {
+
+    min-height: 640px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-badge {
+
+    min-width: 150px;
+
+    min-height: 42px;
+
+    padding: 0 10px;
+
+    font-size: 8px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-badge--top {
+
+    top: 9%;
+    left: 12px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-badge--middle {
+
+    top: 45%;
+    right: 12px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-badge--bottom {
+
+    bottom: 11%;
+    left: 12px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-circle {
+
+    width: 84px;
+    height: 84px;
+
+    right: 12px;
+    bottom: 14px;
+
+    font-size: 8px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-statement-left {
+
+    padding: 24px 16px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-statement-right {
+
+    padding: 28px 16px 34px;
+
+    font-size:
+      clamp(34px, 10vw, 52px);
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-marquee-group {
+
+    min-height: 58px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-marquee-group span {
+
+    font-size: 24px;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-dot {
+
+    margin: 0 18px;
+  }
+
+}
+
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+
+  #TrackBrandStory-{{ section.id }} .tbs-image,
+  #TrackBrandStory-{{ section.id }} .tbs-badge,
+  #TrackBrandStory-{{ section.id }} .tbs-circle,
+  #TrackBrandStory-{{ section.id }} .tbs-button {
+
+    transition: none;
+  }
+
+
+  #TrackBrandStory-{{ section.id }} .tbs-marquee-track {
+
+    animation: none;
+  }
+
+}
+
+</style>
+
+
+{% schema %}
+{
+  "name": "Track Brand Story",
+  "tag": "section",
+  "class": "track-brand-story-section",
+
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "OUR APPROACH"
+    },
+
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "BUILT\nTO\nMOVE."
+    },
+
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Engineered for everyday movement. Designed to perform without compromising comfort or style.</p>"
+    },
+
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "OUR STORY"
+    },
+
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Lifestyle image"
+    },
+
+    {
+      "type": "text",
+      "id": "label_one",
+      "label": "Floating label 1",
+      "default": "PERFORMANCE"
+    },
+
+    {
+      "type": "text",
+      "id": "label_two",
+      "label": "Floating label 2",
+      "default": "COMFORT"
+    },
+
+    {
+      "type": "text",
+      "id": "label_three",
+      "label": "Floating label 3",
+      "default": "EVERYDAY"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_statement",
+      "label": "Show statement section",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "statement_small",
+      "label": "Statement small text",
+      "default": "FUNCTION FIRST. STYLE ALWAYS."
+    },
+
+    {
+      "type": "textarea",
+      "id": "statement_large",
+      "label": "Statement large text",
+      "default": "THE GEAR SHOULD MOVE WITH YOU — NOT HOLD YOU BACK."
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_marquee",
+      "label": "Show moving bottom strip",
+      "default": true
+    },
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F3F3F1"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#C7FF00"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Track Brand Story"
+    }
+  ]
+}
+{% endschema %}

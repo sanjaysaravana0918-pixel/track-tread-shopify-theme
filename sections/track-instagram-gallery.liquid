@@ -1,0 +1,1325 @@
+<section
+  id="TrackInstagramGallery-{{ section.id }}"
+  class="track-instagram-gallery"
+  style="
+    --tig-bg: {{ section.settings.background_color }};
+    --tig-text: {{ section.settings.text_color }};
+    --tig-accent: {{ section.settings.accent_color }};
+    --tig-border: {{ section.settings.border_color }};
+  "
+>
+
+  <!-- HEADER -->
+  <div class="tig-head">
+
+    <div class="tig-head-left">
+
+      {% if section.settings.eyebrow != blank %}
+        <div class="tig-eyebrow">
+          <span class="tig-dot"></span>
+          {{ section.settings.eyebrow }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="tig-heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+    </div>
+
+    <div class="tig-head-right">
+
+      {% if section.settings.intro != blank %}
+        <div class="tig-intro">
+          {{ section.settings.intro }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.profile_label != blank %}
+        <a
+          class="tig-profile-link"
+          {% if section.settings.profile_link != blank %}
+            href="{{ section.settings.profile_link }}"
+            target="_blank"
+            rel="noopener"
+          {% else %}
+            role="link"
+            aria-disabled="true"
+          {% endif %}
+        >
+          <span>{{ section.settings.profile_label }}</span>
+          <span>↗</span>
+        </a>
+      {% endif %}
+
+    </div>
+
+  </div>
+
+
+  <!-- SOCIAL MOSAIC -->
+  <div class="tig-grid">
+
+    <!-- FEATURED -->
+    <a
+      class="tig-card tig-card--featured"
+      {% if section.settings.link_one != blank %}
+        href="{{ section.settings.link_one }}"
+      {% else %}
+        role="link"
+        aria-disabled="true"
+      {% endif %}
+    >
+
+      {% if section.settings.image_one != blank %}
+        {{
+          section.settings.image_one
+          | image_url: width: 1800
+          | image_tag:
+            class: 'tig-image',
+            loading: 'lazy',
+            widths: '700, 1000, 1400, 1800',
+            sizes: '(min-width: 990px) 50vw, 100vw',
+            alt: section.settings.image_one.alt
+        }}
+      {% else %}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'tig-placeholder' }}
+      {% endif %}
+
+      <div class="tig-overlay"></div>
+
+      <div class="tig-card-top">
+        <span>01</span>
+        <span>FEATURED MOVE</span>
+      </div>
+
+      <div class="tig-card-bottom">
+        <div>
+          <span class="tig-small-label">
+            {{ section.settings.label_one }}
+          </span>
+
+          <h3 class="tig-card-title">
+            {{ section.settings.title_one }}
+          </h3>
+        </div>
+
+        <span class="tig-hover-circle">
+          ↗
+        </span>
+      </div>
+
+    </a>
+
+
+    <!-- RIGHT GRID -->
+    <div class="tig-right-grid">
+
+      <!-- CARD 2 -->
+      <a
+        class="tig-card tig-card--small"
+        {% if section.settings.link_two != blank %}
+          href="{{ section.settings.link_two }}"
+        {% else %}
+          role="link"
+          aria-disabled="true"
+        {% endif %}
+      >
+        {% if section.settings.image_two != blank %}
+          {{
+            section.settings.image_two
+            | image_url: width: 1200
+            | image_tag:
+              class: 'tig-image',
+              loading: 'lazy',
+              widths: '500, 800, 1000, 1200',
+              sizes: '(min-width: 990px) 25vw, 50vw',
+              alt: section.settings.image_two.alt
+          }}
+        {% else %}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'tig-placeholder' }}
+        {% endif %}
+
+        <div class="tig-overlay"></div>
+
+        <span class="tig-number">02</span>
+
+        <div class="tig-mini-info">
+          <span>{{ section.settings.label_two }}</span>
+          <strong>{{ section.settings.title_two }}</strong>
+        </div>
+
+        <div class="tig-view">
+          <span>VIEW</span>
+          <span>↗</span>
+        </div>
+      </a>
+
+
+      <!-- CARD 3 -->
+      <a
+        class="tig-card tig-card--small"
+        {% if section.settings.link_three != blank %}
+          href="{{ section.settings.link_three }}"
+        {% else %}
+          role="link"
+          aria-disabled="true"
+        {% endif %}
+      >
+        {% if section.settings.image_three != blank %}
+          {{
+            section.settings.image_three
+            | image_url: width: 1200
+            | image_tag:
+              class: 'tig-image',
+              loading: 'lazy',
+              widths: '500, 800, 1000, 1200',
+              sizes: '(min-width: 990px) 25vw, 50vw',
+              alt: section.settings.image_three.alt
+          }}
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'tig-placeholder' }}
+        {% endif %}
+
+        <div class="tig-overlay tig-overlay--soft"></div>
+
+        <span class="tig-number">03</span>
+
+        <div class="tig-mini-info">
+          <span>{{ section.settings.label_three }}</span>
+          <strong>{{ section.settings.title_three }}</strong>
+        </div>
+
+        <div class="tig-view">
+          <span>VIEW</span>
+          <span>↗</span>
+        </div>
+      </a>
+
+
+      <!-- CARD 4 -->
+      <a
+        class="tig-card tig-card--wide"
+        {% if section.settings.link_four != blank %}
+          href="{{ section.settings.link_four }}"
+        {% else %}
+          role="link"
+          aria-disabled="true"
+        {% endif %}
+      >
+        {% if section.settings.image_four != blank %}
+          {{
+            section.settings.image_four
+            | image_url: width: 1500
+            | image_tag:
+              class: 'tig-image',
+              loading: 'lazy',
+              widths: '600, 900, 1200, 1500',
+              sizes: '(min-width: 990px) 50vw, 100vw',
+              alt: section.settings.image_four.alt
+          }}
+        {% else %}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'tig-placeholder' }}
+        {% endif %}
+
+        <div class="tig-overlay tig-overlay--dark"></div>
+
+        <span class="tig-number">04</span>
+
+        <div class="tig-mini-info">
+          <span>{{ section.settings.label_four }}</span>
+          <strong>{{ section.settings.title_four }}</strong>
+        </div>
+
+        <div class="tig-view">
+          <span>VIEW</span>
+          <span>↗</span>
+        </div>
+      </a>
+
+
+      <!-- CARD 5 -->
+      <a
+        class="tig-card tig-card--wide tig-card--lime"
+        {% if section.settings.link_five != blank %}
+          href="{{ section.settings.link_five }}"
+        {% else %}
+          role="link"
+          aria-disabled="true"
+        {% endif %}
+      >
+        {% if section.settings.image_five != blank %}
+          {{
+            section.settings.image_five
+            | image_url: width: 1500
+            | image_tag:
+              class: 'tig-image',
+              loading: 'lazy',
+              widths: '600, 900, 1200, 1500',
+              sizes: '(min-width: 990px) 50vw, 100vw',
+              alt: section.settings.image_five.alt
+          }}
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'tig-placeholder' }}
+        {% endif %}
+
+        <div class="tig-overlay tig-overlay--dark"></div>
+
+        <span class="tig-number">05</span>
+
+        <div class="tig-mini-info">
+          <span>{{ section.settings.label_five }}</span>
+          <strong>{{ section.settings.title_five }}</strong>
+        </div>
+
+        <div class="tig-view">
+          <span>VIEW</span>
+          <span>↗</span>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <!-- SOCIAL BAR -->
+  <div class="tig-social-bar">
+
+    <div class="tig-social-small">
+      {{ section.settings.social_small }}
+    </div>
+
+    <div class="tig-social-main">
+      <span>{{ section.settings.social_main }}</span>
+
+      <span class="tig-social-circle">
+        @
+      </span>
+    </div>
+
+  </div>
+
+
+  {% if section.settings.show_marquee %}
+    <div class="tig-marquee">
+
+      <div class="tig-marquee-track">
+
+        {% for repeat in (1..2) %}
+          <div class="tig-marquee-group">
+
+            <span>RUN</span>
+            <span class="tig-marquee-dot">✦</span>
+
+            <span>TRAIN</span>
+            <span class="tig-marquee-dot">✦</span>
+
+            <span>MOVE</span>
+            <span class="tig-marquee-dot">✦</span>
+
+            <span>REPEAT</span>
+            <span class="tig-marquee-dot">✦</span>
+
+            <span>TRACK&TREAD</span>
+            <span class="tig-marquee-dot">✦</span>
+
+          </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  {% endif %}
+
+</section>
+
+
+<style>
+
+#TrackInstagramGallery-{{ section.id }} {
+  background: var(--tig-bg);
+  color: var(--tig-text);
+  overflow: hidden;
+
+  border-top: 1px solid var(--tig-border);
+}
+
+
+/* HEADER */
+
+#TrackInstagramGallery-{{ section.id }} .tig-head {
+  display: grid;
+  grid-template-columns: 1.45fr .55fr;
+  align-items: end;
+
+  gap: 50px;
+
+  padding: 74px 30px 40px;
+
+  border-bottom: 1px solid var(--tig-border);
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-eyebrow {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 14px;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: .18em;
+  text-transform: uppercase;
+
+  opacity: .5;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--tig-accent);
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-heading {
+  margin: 0;
+
+  max-width: 1100px;
+
+  font-size: clamp(62px, 6.8vw, 132px);
+  line-height: .82;
+
+  font-weight: 500;
+  letter-spacing: -.07em;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-head-right {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 24px;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-intro {
+  max-width: 360px;
+
+  font-size: 15px;
+  line-height: 1.45;
+
+  opacity: .66;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-intro p {
+  margin: 0;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-profile-link {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding-bottom: 7px;
+
+  color: inherit;
+  text-decoration: none;
+
+  border-bottom: 1px solid currentColor;
+
+  font-size: 9px;
+  letter-spacing: .12em;
+
+  transition:
+    gap .25s ease,
+    opacity .25s ease;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-profile-link:hover {
+  gap: 19px;
+  opacity: .55;
+}
+
+
+/* MAIN GRID */
+
+#TrackInstagramGallery-{{ section.id }} .tig-grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+
+  min-height: 900px;
+
+  border-bottom: 1px solid var(--tig-border);
+}
+
+
+/* FEATURED */
+
+#TrackInstagramGallery-{{ section.id }} .tig-card {
+  position: relative;
+
+  display: block;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  background: #111;
+
+  color: #fff;
+
+  text-decoration: none;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-card--featured {
+  min-height: 900px;
+
+  border-right: 1px solid var(--tig-border);
+}
+
+
+/* RIGHT GRID */
+
+#TrackInstagramGallery-{{ section.id }} .tig-right-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+
+  min-height: 900px;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-card--small {
+  min-height: 300px;
+
+  border-bottom: 1px solid var(--tig-border);
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-card--small:first-child {
+  border-right: 1px solid var(--tig-border);
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-card--wide {
+  grid-column: span 2;
+
+  min-height: 300px;
+
+  border-bottom: 1px solid var(--tig-border);
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-card--lime {
+  border-bottom: 0;
+}
+
+
+/* IMAGE */
+
+#TrackInstagramGallery-{{ section.id }} .tig-image,
+#TrackInstagramGallery-{{ section.id }} .tig-placeholder {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    transform 1s cubic-bezier(.2,.7,.2,1),
+    filter .4s ease;
+}
+
+
+/* OVERLAY */
+
+#TrackInstagramGallery-{{ section.id }} .tig-overlay {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.03),
+      rgba(0,0,0,.05) 50%,
+      rgba(0,0,0,.62) 100%
+    );
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-overlay--soft {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.02),
+      rgba(0,0,0,.04) 55%,
+      rgba(0,0,0,.45) 100%
+    );
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-overlay--dark {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.08),
+      rgba(0,0,0,.1) 45%,
+      rgba(0,0,0,.7) 100%
+    );
+}
+
+
+/* FEATURED TOP */
+
+#TrackInstagramGallery-{{ section.id }} .tig-card-top {
+  position: absolute;
+
+  z-index: 4;
+
+  top: 20px;
+  left: 20px;
+  right: 20px;
+
+  display: flex;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  font-size: 9px;
+  letter-spacing: .13em;
+
+  text-transform: uppercase;
+}
+
+
+/* FEATURED BOTTOM */
+
+#TrackInstagramGallery-{{ section.id }} .tig-card-bottom {
+  position: absolute;
+
+  z-index: 4;
+
+  left: 24px;
+  right: 24px;
+  bottom: 24px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-small-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 9px;
+  letter-spacing: .13em;
+
+  text-transform: uppercase;
+
+  opacity: .75;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-card-title {
+  margin: 0;
+
+  max-width: 650px;
+
+  font-size: clamp(56px, 5.5vw, 104px);
+  line-height: .84;
+
+  font-weight: 500;
+  letter-spacing: -.065em;
+}
+
+
+/* CIRCLE */
+
+#TrackInstagramGallery-{{ section.id }} .tig-hover-circle {
+  flex: 0 0 auto;
+
+  width: 64px;
+  height: 64px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--tig-accent);
+  color: #000;
+
+  border: 1px solid #000;
+
+  font-size: 24px;
+
+  transition:
+    transform .3s ease,
+    background .3s ease;
+}
+
+
+/* MINI CARDS */
+
+#TrackInstagramGallery-{{ section.id }} .tig-number {
+  position: absolute;
+
+  z-index: 4;
+
+  top: 14px;
+  left: 14px;
+
+  font-size: 8px;
+  letter-spacing: .12em;
+
+  opacity: .78;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-mini-info {
+  position: absolute;
+
+  z-index: 4;
+
+  left: 15px;
+  bottom: 15px;
+
+  max-width: calc(100% - 90px);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-mini-info span {
+  font-size: 8px;
+  letter-spacing: .12em;
+
+  text-transform: uppercase;
+
+  opacity: .72;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-mini-info strong {
+  font-size: clamp(20px, 2vw, 32px);
+  line-height: .95;
+
+  font-weight: 500;
+  letter-spacing: -.035em;
+}
+
+
+/* VIEW */
+
+#TrackInstagramGallery-{{ section.id }} .tig-view {
+  position: absolute;
+
+  z-index: 5;
+
+  right: 14px;
+  bottom: 14px;
+
+  min-width: 64px;
+  min-height: 38px;
+
+  padding: 0 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  background: rgba(255,255,255,.92);
+  color: #000;
+
+  backdrop-filter: blur(8px);
+
+  font-size: 8px;
+  letter-spacing: .08em;
+
+  transform: translateY(70px);
+
+  transition:
+    transform .3s ease;
+}
+
+
+/* HOVERS */
+
+@media (hover:hover) {
+
+  #TrackInstagramGallery-{{ section.id }}
+  .tig-card:hover
+  .tig-image {
+
+    transform: scale(1.055);
+
+    filter: saturate(1.05);
+  }
+
+  #TrackInstagramGallery-{{ section.id }}
+  .tig-card:hover
+  .tig-hover-circle {
+
+    transform:
+      rotate(45deg)
+      scale(1.08);
+
+    background: #fff;
+  }
+
+  #TrackInstagramGallery-{{ section.id }}
+  .tig-card:hover
+  .tig-view {
+
+    transform: translateY(0);
+  }
+
+}
+
+
+/* SOCIAL BAR */
+
+#TrackInstagramGallery-{{ section.id }} .tig-social-bar {
+  display: grid;
+  grid-template-columns: 28% 72%;
+
+  border-bottom: 1px solid var(--tig-border);
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-social-small {
+  padding: 26px 28px;
+
+  display: flex;
+  align-items: center;
+
+  border-right: 1px solid var(--tig-border);
+
+  font-size: 9px;
+  letter-spacing: .13em;
+
+  text-transform: uppercase;
+
+  opacity: .5;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-social-main {
+  min-height: 125px;
+
+  padding: 20px 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  background: var(--tig-accent);
+  color: #000;
+
+  font-size: clamp(30px, 3.5vw, 64px);
+  line-height: .95;
+
+  letter-spacing: -.05em;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-social-circle {
+  flex: 0 0 auto;
+
+  width: 62px;
+  height: 62px;
+
+  border-radius: 50%;
+
+  border: 1px solid #000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+}
+
+
+/* MARQUEE */
+
+#TrackInstagramGallery-{{ section.id }} .tig-marquee {
+  overflow: hidden;
+
+  background: #000;
+  color: var(--tig-accent);
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-marquee-track {
+  display: flex;
+
+  width: max-content;
+
+  animation:
+    tigMarquee-{{ section.id }}
+    28s linear infinite;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-marquee-group {
+  display: flex;
+  flex-shrink: 0;
+
+  align-items: center;
+
+  min-height: 66px;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-marquee-group span {
+  white-space: nowrap;
+
+  font-size: clamp(24px, 2vw, 38px);
+  line-height: 1;
+
+  letter-spacing: -.04em;
+}
+
+#TrackInstagramGallery-{{ section.id }} .tig-marquee-dot {
+  margin: 0 24px;
+}
+
+@keyframes tigMarquee-{{ section.id }} {
+
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+
+}
+
+
+/* TABLET */
+
+@media screen and (max-width: 989px) {
+
+  #TrackInstagramGallery-{{ section.id }} .tig-head {
+    grid-template-columns: 1fr;
+
+    gap: 22px;
+
+    padding: 54px 20px 30px;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-intro {
+    max-width: 500px;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-grid {
+    grid-template-columns: 1fr;
+
+    min-height: 0;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-card--featured {
+    min-height: 720px;
+
+    border-right: 0;
+    border-bottom: 1px solid var(--tig-border);
+  }
+
+}
+
+
+/* MOBILE */
+
+@media screen and (max-width: 749px) {
+
+  #TrackInstagramGallery-{{ section.id }} .tig-head {
+    padding: 42px 16px 24px;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-heading {
+    font-size: clamp(50px, 15vw, 76px);
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-intro {
+    font-size: 14px;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-card--featured {
+    min-height: 560px;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-card-bottom {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-card-title {
+    font-size: clamp(48px, 14vw, 72px);
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-hover-circle {
+    width: 50px;
+    height: 50px;
+
+    font-size: 18px;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-right-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+
+    min-height: 0;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-card--small,
+  #TrackInstagramGallery-{{ section.id }} .tig-card--wide {
+    grid-column: auto;
+
+    min-height: 420px;
+
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--tig-border);
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-card--lime {
+    border-bottom: 0;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-mini-info strong {
+    font-size: 28px;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-social-bar {
+    grid-template-columns: 1fr;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-social-small {
+    border-right: 0;
+    border-bottom: 1px solid var(--tig-border);
+
+    padding: 18px 16px;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-social-main {
+    min-height: 105px;
+
+    padding: 20px 16px;
+
+    font-size: clamp(28px, 9vw, 44px);
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-social-circle {
+    width: 50px;
+    height: 50px;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-marquee-group {
+    min-height: 54px;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-marquee-group span {
+    font-size: 22px;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-marquee-dot {
+    margin: 0 17px;
+  }
+
+}
+
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+
+  #TrackInstagramGallery-{{ section.id }} .tig-image,
+  #TrackInstagramGallery-{{ section.id }} .tig-hover-circle,
+  #TrackInstagramGallery-{{ section.id }} .tig-view {
+    transition: none;
+  }
+
+  #TrackInstagramGallery-{{ section.id }} .tig-marquee-track {
+    animation: none;
+  }
+
+}
+
+</style>
+
+
+{% schema %}
+{
+  "name": "Track Social Gallery",
+  "tag": "section",
+  "class": "track-instagram-gallery-section",
+
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "SOCIAL / COMMUNITY"
+    },
+
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "FOLLOW THE MOVEMENT"
+    },
+
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro",
+      "default": "<p>From early runs to late sessions, see how the Track&Tread community keeps moving.</p>"
+    },
+
+    {
+      "type": "text",
+      "id": "profile_label",
+      "label": "Profile label",
+      "default": "@TRACKANDTREAD"
+    },
+
+    {
+      "type": "url",
+      "id": "profile_link",
+      "label": "Profile link"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Image 1 — Featured"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image_one",
+      "label": "Image"
+    },
+
+    {
+      "type": "text",
+      "id": "label_one",
+      "label": "Small label",
+      "default": "COMMUNITY / RUNNING"
+    },
+
+    {
+      "type": "text",
+      "id": "title_one",
+      "label": "Title",
+      "default": "CHASE YOUR NEXT MILE"
+    },
+
+    {
+      "type": "url",
+      "id": "link_one",
+      "label": "Link"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Image 2"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image_two",
+      "label": "Image"
+    },
+
+    {
+      "type": "text",
+      "id": "label_two",
+      "label": "Label",
+      "default": "TRAIN"
+    },
+
+    {
+      "type": "text",
+      "id": "title_two",
+      "label": "Title",
+      "default": "EARLY SESSION"
+    },
+
+    {
+      "type": "url",
+      "id": "link_two",
+      "label": "Link"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Image 3"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image_three",
+      "label": "Image"
+    },
+
+    {
+      "type": "text",
+      "id": "label_three",
+      "label": "Label",
+      "default": "RECOVERY"
+    },
+
+    {
+      "type": "text",
+      "id": "title_three",
+      "label": "Title",
+      "default": "RESET & RELOAD"
+    },
+
+    {
+      "type": "url",
+      "id": "link_three",
+      "label": "Link"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Image 4"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image_four",
+      "label": "Image"
+    },
+
+    {
+      "type": "text",
+      "id": "label_four",
+      "label": "Label",
+      "default": "CITY MOVEMENT"
+    },
+
+    {
+      "type": "text",
+      "id": "title_four",
+      "label": "Title",
+      "default": "BUILT FOR EVERYDAY"
+    },
+
+    {
+      "type": "url",
+      "id": "link_four",
+      "label": "Link"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Image 5"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image_five",
+      "label": "Image"
+    },
+
+    {
+      "type": "text",
+      "id": "label_five",
+      "label": "Label",
+      "default": "TRACK&TREAD"
+    },
+
+    {
+      "type": "text",
+      "id": "title_five",
+      "label": "Title",
+      "default": "MOVE YOUR WAY"
+    },
+
+    {
+      "type": "url",
+      "id": "link_five",
+      "label": "Link"
+    },
+
+
+    {
+      "type": "text",
+      "id": "social_small",
+      "label": "Social bar small text",
+      "default": "JOIN THE COMMUNITY"
+    },
+
+    {
+      "type": "text",
+      "id": "social_main",
+      "label": "Social bar main text",
+      "default": "FOLLOW @TRACKANDTREAD"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_marquee",
+      "label": "Show moving bottom strip",
+      "default": true
+    },
+
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F3F3F1"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Borders",
+      "default": "#111111"
+    },
+
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#C7FF00"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Track Social Gallery"
+    }
+  ]
+}
+{% endschema %}

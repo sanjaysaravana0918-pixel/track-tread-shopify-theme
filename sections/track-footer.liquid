@@ -1,0 +1,1777 @@
+<footer
+  id="TrackFooter-{{ section.id }}"
+  class="track-footer"
+  style="
+    --tf-bg: {{ section.settings.background_color }};
+    --tf-text: {{ section.settings.text_color }};
+    --tf-muted: {{ section.settings.muted_color }};
+    --tf-border: {{ section.settings.border_color }};
+    --tf-accent: {{ section.settings.accent_color }};
+  "
+>
+
+  <!-- =========================================
+       TOP BRAND AREA
+  ========================================== -->
+  <div class="tf-top">
+
+    <div class="tf-brand">
+
+      {% if section.settings.logo_text != blank %}
+        <a
+          href="{{ routes.root_url }}"
+          class="tf-logo"
+          aria-label="{{ shop.name | escape }}"
+        >
+          {{ section.settings.logo_text }}
+        </a>
+      {% endif %}
+
+
+      {% if section.settings.brand_text != blank %}
+        <div class="tf-brand-copy">
+          {{ section.settings.brand_text }}
+        </div>
+      {% endif %}
+
+    </div>
+
+
+    <div class="tf-top-side">
+
+      <span class="tf-top-label">
+        {{ section.settings.top_label }}
+      </span>
+
+      <a
+        href="#"
+        class="tf-back-top"
+        data-tf-top
+      >
+        <span>BACK TO TOP</span>
+
+        <span class="tf-back-circle">
+          ↑
+        </span>
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       NAVIGATION AREA
+  ========================================== -->
+  <div class="tf-navigation">
+
+    <!-- SHOP -->
+    <div class="tf-nav-column">
+
+      <button
+        type="button"
+        class="tf-nav-heading"
+        data-tf-toggle
+      >
+        <span>{{ section.settings.shop_heading }}</span>
+        <span class="tf-mobile-plus">+</span>
+      </button>
+
+      <div class="tf-nav-content">
+
+        {% if section.settings.shop_menu != blank %}
+
+          <ul class="tf-menu">
+
+            {% for link in section.settings.shop_menu.links %}
+
+              <li>
+                <a href="{{ link.url }}">
+                  <span>{{ link.title }}</span>
+                  <span class="tf-link-arrow">↗</span>
+                </a>
+              </li>
+
+            {% endfor %}
+
+          </ul>
+
+        {% else %}
+
+          <ul class="tf-menu">
+            <li><a href="/collections/all"><span>Shop All</span><span>↗</span></a></li>
+            <li><a href="/collections/all"><span>New Arrivals</span><span>↗</span></a></li>
+            <li><a href="/collections/all"><span>Best Sellers</span><span>↗</span></a></li>
+            <li><a href="/collections/all"><span>Footwear</span><span>↗</span></a></li>
+          </ul>
+
+        {% endif %}
+
+      </div>
+
+    </div>
+
+
+    <!-- HELP -->
+    <div class="tf-nav-column">
+
+      <button
+        type="button"
+        class="tf-nav-heading"
+        data-tf-toggle
+      >
+        <span>{{ section.settings.help_heading }}</span>
+        <span class="tf-mobile-plus">+</span>
+      </button>
+
+      <div class="tf-nav-content">
+
+        {% if section.settings.help_menu != blank %}
+
+          <ul class="tf-menu">
+
+            {% for link in section.settings.help_menu.links %}
+
+              <li>
+                <a href="{{ link.url }}">
+                  <span>{{ link.title }}</span>
+                  <span class="tf-link-arrow">↗</span>
+                </a>
+              </li>
+
+            {% endfor %}
+
+          </ul>
+
+        {% else %}
+
+          <ul class="tf-menu">
+            <li><a href="#"><span>Shipping</span><span>↗</span></a></li>
+            <li><a href="#"><span>Returns</span><span>↗</span></a></li>
+            <li><a href="#"><span>Size Guide</span><span>↗</span></a></li>
+            <li><a href="#"><span>Contact</span><span>↗</span></a></li>
+          </ul>
+
+        {% endif %}
+
+      </div>
+
+    </div>
+
+
+    <!-- ABOUT -->
+    <div class="tf-nav-column">
+
+      <button
+        type="button"
+        class="tf-nav-heading"
+        data-tf-toggle
+      >
+        <span>{{ section.settings.about_heading }}</span>
+        <span class="tf-mobile-plus">+</span>
+      </button>
+
+      <div class="tf-nav-content">
+
+        {% if section.settings.about_menu != blank %}
+
+          <ul class="tf-menu">
+
+            {% for link in section.settings.about_menu.links %}
+
+              <li>
+                <a href="{{ link.url }}">
+                  <span>{{ link.title }}</span>
+                  <span class="tf-link-arrow">↗</span>
+                </a>
+              </li>
+
+            {% endfor %}
+
+          </ul>
+
+        {% else %}
+
+          <ul class="tf-menu">
+            <li><a href="#"><span>Our Story</span><span>↗</span></a></li>
+            <li><a href="#"><span>Journal</span><span>↗</span></a></li>
+            <li><a href="#"><span>Community</span><span>↗</span></a></li>
+            <li><a href="#"><span>Careers</span><span>↗</span></a></li>
+          </ul>
+
+        {% endif %}
+
+      </div>
+
+    </div>
+
+
+    <!-- SOCIAL -->
+    <div class="tf-social-column">
+
+      <div class="tf-nav-heading tf-social-heading">
+        {{ section.settings.social_heading }}
+      </div>
+
+
+      <div class="tf-social-list">
+
+        {% if section.settings.instagram_url != blank %}
+          <a
+            href="{{ section.settings.instagram_url }}"
+            target="_blank"
+            rel="noopener"
+          >
+            <span>Instagram</span>
+            <span>↗</span>
+          </a>
+        {% endif %}
+
+
+        {% if section.settings.tiktok_url != blank %}
+          <a
+            href="{{ section.settings.tiktok_url }}"
+            target="_blank"
+            rel="noopener"
+          >
+            <span>TikTok</span>
+            <span>↗</span>
+          </a>
+        {% endif %}
+
+
+        {% if section.settings.youtube_url != blank %}
+          <a
+            href="{{ section.settings.youtube_url }}"
+            target="_blank"
+            rel="noopener"
+          >
+            <span>YouTube</span>
+            <span>↗</span>
+          </a>
+        {% endif %}
+
+
+        {% if section.settings.facebook_url != blank %}
+          <a
+            href="{{ section.settings.facebook_url }}"
+            target="_blank"
+            rel="noopener"
+          >
+            <span>Facebook</span>
+            <span>↗</span>
+          </a>
+        {% endif %}
+
+
+        {% if section.settings.instagram_url == blank
+          and section.settings.tiktok_url == blank
+          and section.settings.youtube_url == blank
+          and section.settings.facebook_url == blank
+        %}
+
+          <a href="#"><span>Instagram</span><span>↗</span></a>
+          <a href="#"><span>TikTok</span><span>↗</span></a>
+          <a href="#"><span>YouTube</span><span>↗</span></a>
+
+        {% endif %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       GIANT WORDMARK
+  ========================================== -->
+  <div class="tf-wordmark-wrap">
+
+    <div class="tf-wordmark-top">
+
+      <span>{{ section.settings.wordmark_small_left }}</span>
+
+      <span>{{ section.settings.wordmark_small_right }}</span>
+
+    </div>
+
+
+    <div class="tf-wordmark">
+      {{ section.settings.logo_text }}
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       LIME STATEMENT
+  ========================================== -->
+  {% if section.settings.show_statement %}
+
+    <div class="tf-statement">
+
+      <span class="tf-statement-small">
+        {{ section.settings.statement_small }}
+      </span>
+
+
+      <div class="tf-statement-main">
+
+        <span>
+          {{ section.settings.statement_large }}
+        </span>
+
+
+        <span class="tf-statement-circle">
+          ↗
+        </span>
+
+      </div>
+
+    </div>
+
+  {% endif %}
+
+
+  <!-- =========================================
+       BOTTOM LEGAL
+  ========================================== -->
+  <div class="tf-bottom">
+
+    <div class="tf-copyright">
+      © {{ 'now' | date: '%Y' }}
+      {{ shop.name }}.
+      {{ section.settings.copyright_suffix }}
+    </div>
+
+
+    <div class="tf-legal">
+
+      {% if section.settings.legal_menu != blank %}
+
+        {% for link in section.settings.legal_menu.links %}
+          <a href="{{ link.url }}">
+            {{ link.title }}
+          </a>
+        {% endfor %}
+
+      {% else %}
+
+        {% if shop.privacy_policy %}
+          <a href="{{ shop.privacy_policy.url }}">
+            Privacy
+          </a>
+        {% endif %}
+
+        {% if shop.terms_of_service %}
+          <a href="{{ shop.terms_of_service.url }}">
+            Terms
+          </a>
+        {% endif %}
+
+        {% if shop.refund_policy %}
+          <a href="{{ shop.refund_policy.url }}">
+            Returns
+          </a>
+        {% endif %}
+
+      {% endif %}
+
+    </div>
+
+
+    <div class="tf-country">
+      {{ localization.country.name }}
+      /
+      {{ localization.country.currency.iso_code }}
+    </div>
+
+  </div>
+
+</footer>
+
+
+<style>
+
+/* ==================================================
+   BASE
+================================================== */
+
+#TrackFooter-{{ section.id }} {
+  background: var(--tf-bg);
+  color: var(--tf-text);
+
+  overflow: hidden;
+
+  border-top:
+    1px solid
+    var(--tf-border);
+}
+
+
+/* ==================================================
+   TOP
+================================================== */
+
+#TrackFooter-{{ section.id }} .tf-top {
+
+  min-height: 210px;
+
+  padding:
+    42px 30px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0,1fr)
+    auto;
+
+  align-items: end;
+
+  gap: 40px;
+
+  border-bottom:
+    1px solid
+    var(--tf-border);
+}
+
+
+#TrackFooter-{{ section.id }} .tf-brand {
+
+  max-width: 700px;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-logo {
+
+  display: inline-block;
+
+  color: inherit;
+
+  text-decoration: none;
+
+  font-size:
+    clamp(
+      34px,
+      4vw,
+      68px
+    );
+
+  line-height: .9;
+
+  font-weight: 500;
+
+  letter-spacing: -.055em;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-brand-copy {
+
+  max-width: 520px;
+
+  margin-top: 20px;
+
+  font-size: 15px;
+
+  line-height: 1.5;
+
+  color: var(--tf-muted);
+}
+
+
+#TrackFooter-{{ section.id }} .tf-brand-copy p {
+
+  margin: 0;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-top-side {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 22px;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-top-label {
+
+  font-size: 8px;
+
+  letter-spacing: .14em;
+
+  text-transform: uppercase;
+
+  color: var(--tf-muted);
+}
+
+
+#TrackFooter-{{ section.id }} .tf-back-top {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  color: inherit;
+
+  text-decoration: none;
+
+  font-size: 9px;
+
+  letter-spacing: .12em;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-back-circle {
+
+  width: 52px;
+  height: 52px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    var(--tf-border);
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 18px;
+
+  transition:
+    background .25s ease,
+    color .25s ease,
+    transform .25s ease;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-back-top:hover .tf-back-circle {
+
+  background: var(--tf-accent);
+
+  color: #000;
+
+  transform:
+    translateY(-4px);
+}
+
+
+/* ==================================================
+   NAV
+================================================== */
+
+#TrackFooter-{{ section.id }} .tf-navigation {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  border-bottom:
+    1px solid
+    var(--tf-border);
+}
+
+
+#TrackFooter-{{ section.id }} .tf-nav-column,
+#TrackFooter-{{ section.id }} .tf-social-column {
+
+  min-height: 360px;
+
+  padding:
+    25px 26px
+    32px;
+
+  border-right:
+    1px solid
+    var(--tf-border);
+}
+
+
+#TrackFooter-{{ section.id }} .tf-social-column {
+
+  border-right: 0;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-nav-heading {
+
+  appearance: none;
+
+  width: 100%;
+
+  margin: 0 0 42px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: var(--tf-muted);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  text-align: left;
+
+  font: inherit;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: .14em;
+
+  text-transform: uppercase;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-mobile-plus {
+
+  display: none;
+}
+
+
+/* MENU */
+
+#TrackFooter-{{ section.id }} .tf-menu {
+
+  list-style: none;
+
+  margin: 0;
+
+  padding: 0;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-menu li + li {
+
+  margin-top: 9px;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-menu a {
+
+  min-height: 39px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  color: inherit;
+
+  text-decoration: none;
+
+  font-size: 17px;
+
+  line-height: 1.15;
+
+  letter-spacing: -.025em;
+
+  border-bottom:
+    1px solid
+    transparent;
+
+  transition:
+    padding-left .25s ease,
+    color .25s ease,
+    border-color .25s ease;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-link-arrow,
+#TrackFooter-{{ section.id }} .tf-menu a > span:last-child {
+
+  opacity: 0;
+
+  transform:
+    translate(-5px,5px);
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease;
+}
+
+
+@media (hover:hover) {
+
+  #TrackFooter-{{ section.id }} .tf-menu a:hover {
+
+    padding-left: 7px;
+
+    color: var(--tf-accent);
+
+    border-color:
+      rgba(255,255,255,.12);
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-menu a:hover .tf-link-arrow,
+  #TrackFooter-{{ section.id }} .tf-menu a:hover > span:last-child {
+
+    opacity: 1;
+
+    transform:
+      translate(0,0);
+  }
+
+}
+
+
+/* ==================================================
+   SOCIAL
+================================================== */
+
+#TrackFooter-{{ section.id }} .tf-social-list {
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-social-list a {
+
+  min-height: 57px;
+
+  padding:
+    0 3px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  border-bottom:
+    1px solid
+    var(--tf-border);
+
+  color: inherit;
+
+  text-decoration: none;
+
+  font-size: 18px;
+
+  letter-spacing: -.025em;
+
+  transition:
+    background .25s ease,
+    color .25s ease,
+    padding .25s ease;
+}
+
+
+@media (hover:hover) {
+
+  #TrackFooter-{{ section.id }} .tf-social-list a:hover {
+
+    padding:
+      0 12px;
+
+    background: var(--tf-accent);
+
+    color: #000;
+  }
+
+}
+
+
+/* ==================================================
+   GIANT WORDMARK
+================================================== */
+
+#TrackFooter-{{ section.id }} .tf-wordmark-wrap {
+
+  position: relative;
+
+  padding:
+    26px 26px
+    6px;
+
+  overflow: hidden;
+
+  border-bottom:
+    1px solid
+    var(--tf-border);
+}
+
+
+#TrackFooter-{{ section.id }} .tf-wordmark-top {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 30px;
+
+  font-size: 8px;
+
+  letter-spacing: .14em;
+
+  text-transform: uppercase;
+
+  color: var(--tf-muted);
+}
+
+
+#TrackFooter-{{ section.id }} .tf-wordmark {
+
+  margin:
+    0 0
+    -0.07em;
+
+  white-space: nowrap;
+
+  font-size:
+    clamp(
+      120px,
+      15.2vw,
+      330px
+    );
+
+  line-height: .72;
+
+  font-weight: 500;
+
+  letter-spacing: -.08em;
+
+  text-transform: uppercase;
+
+  color: var(--tf-text);
+
+  transform-origin:
+    left bottom;
+
+  transition:
+    letter-spacing .4s ease;
+}
+
+
+@media (hover:hover) {
+
+  #TrackFooter-{{ section.id }}
+  .tf-wordmark-wrap:hover
+  .tf-wordmark {
+
+    letter-spacing: -.065em;
+  }
+
+}
+
+
+/* ==================================================
+   STATEMENT
+================================================== */
+
+#TrackFooter-{{ section.id }} .tf-statement {
+
+  display: grid;
+
+  grid-template-columns:
+    28% 72%;
+
+  border-bottom:
+    1px solid
+    var(--tf-border);
+}
+
+
+#TrackFooter-{{ section.id }} .tf-statement-small {
+
+  padding:
+    24px 28px;
+
+  display: flex;
+
+  align-items: center;
+
+  border-right:
+    1px solid
+    #000;
+
+  background:
+    var(--tf-accent);
+
+  color: #000;
+
+  font-size: 9px;
+
+  letter-spacing: .13em;
+
+  text-transform: uppercase;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-statement-main {
+
+  min-height: 125px;
+
+  padding:
+    20px 28px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    space-between;
+
+  gap: 25px;
+
+  background:
+    var(--tf-accent);
+
+  color: #000;
+
+  font-size:
+    clamp(
+      30px,
+      3.5vw,
+      64px
+    );
+
+  line-height: .93;
+
+  font-weight: 500;
+
+  letter-spacing: -.05em;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-statement-circle {
+
+  flex: 0 0 auto;
+
+  width: 62px;
+  height: 62px;
+
+  border-radius: 50%;
+
+  border: 1px solid #000;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 23px;
+
+  transition:
+    transform .3s ease,
+    background .3s ease,
+    color .3s ease;
+}
+
+
+#TrackFooter-{{ section.id }}
+.tf-statement-main:hover
+.tf-statement-circle {
+
+  transform:
+    rotate(45deg)
+    scale(1.07);
+
+  background: #000;
+
+  color: var(--tf-accent);
+}
+
+
+/* ==================================================
+   BOTTOM
+================================================== */
+
+#TrackFooter-{{ section.id }} .tf-bottom {
+
+  min-height: 75px;
+
+  padding:
+    18px 28px;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    auto
+    auto;
+
+  align-items: center;
+
+  gap: 40px;
+
+  font-size: 8px;
+
+  line-height: 1.4;
+
+  letter-spacing: .1em;
+
+  text-transform: uppercase;
+
+  color: var(--tf-muted);
+}
+
+
+#TrackFooter-{{ section.id }} .tf-legal {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-legal a {
+
+  color: inherit;
+
+  text-decoration: none;
+
+  transition:
+    color .2s ease;
+}
+
+
+#TrackFooter-{{ section.id }} .tf-legal a:hover {
+
+  color: var(--tf-accent);
+}
+
+
+#TrackFooter-{{ section.id }} .tf-country {
+
+  text-align: right;
+}
+
+
+/* ==================================================
+   TABLET
+================================================== */
+
+@media screen and (max-width: 989px) {
+
+  #TrackFooter-{{ section.id }} .tf-top {
+
+    min-height: 190px;
+
+    padding:
+      36px 20px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-navigation {
+
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-nav-column,
+  #TrackFooter-{{ section.id }} .tf-social-column {
+
+    min-height: 320px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-nav-column:nth-child(2) {
+
+    border-right: 0;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-nav-column:nth-child(-n+2) {
+
+    border-bottom:
+      1px solid
+      var(--tf-border);
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-wordmark {
+
+    font-size:
+      clamp(
+        100px,
+        16.8vw,
+        190px
+      );
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-bottom {
+
+    grid-template-columns:
+      1fr auto;
+
+    gap:
+      16px 30px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-country {
+
+    grid-column:
+      1 / -1;
+
+    text-align: left;
+  }
+
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media screen and (max-width: 749px) {
+
+  #TrackFooter-{{ section.id }} .tf-top {
+
+    min-height: 0;
+
+    grid-template-columns: 1fr;
+
+    align-items: start;
+
+    padding:
+      36px 16px
+      28px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-logo {
+
+    font-size: 40px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-brand-copy {
+
+    max-width: 390px;
+
+    font-size: 14px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-top-side {
+
+    align-items: flex-start;
+  }
+
+
+  /* MOBILE ACCORDION */
+
+  #TrackFooter-{{ section.id }} .tf-navigation {
+
+    display: block;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-nav-column,
+  #TrackFooter-{{ section.id }} .tf-social-column {
+
+    min-height: 0;
+
+    padding: 0;
+
+    border-right: 0;
+
+    border-bottom:
+      1px solid
+      var(--tf-border);
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-nav-heading {
+
+    min-height: 68px;
+
+    margin: 0;
+
+    padding:
+      0 16px;
+
+    cursor: pointer;
+
+    color: var(--tf-text);
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-mobile-plus {
+
+    display: block;
+
+    color: var(--tf-accent);
+
+    font-size: 20px;
+
+    font-weight: 400;
+
+    transition:
+      transform .25s ease;
+  }
+
+
+  #TrackFooter-{{ section.id }}
+  .tf-nav-column.is-open
+  .tf-mobile-plus {
+
+    transform:
+      rotate(45deg);
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-nav-content {
+
+    max-height: 0;
+
+    overflow: hidden;
+
+    transition:
+      max-height .4s ease;
+  }
+
+
+  #TrackFooter-{{ section.id }}
+  .tf-nav-column.is-open
+  .tf-nav-content {
+
+    max-height: 600px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-menu {
+
+    padding:
+      0 16px
+      22px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-menu a {
+
+    min-height: 44px;
+
+    font-size: 17px;
+  }
+
+
+  /* SOCIAL ALWAYS OPEN */
+
+  #TrackFooter-{{ section.id }} .tf-social-heading {
+
+    min-height: 68px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-social-list {
+
+    padding:
+      0 16px
+      20px;
+  }
+
+
+  /* WORDMARK */
+
+  #TrackFooter-{{ section.id }} .tf-wordmark-wrap {
+
+    padding:
+      24px 16px
+      7px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-wordmark-top {
+
+    margin-bottom: 26px;
+
+    font-size: 7px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-wordmark {
+
+    font-size:
+      clamp(
+        68px,
+        17vw,
+        118px
+      );
+
+    letter-spacing: -.075em;
+  }
+
+
+  /* STATEMENT */
+
+  #TrackFooter-{{ section.id }} .tf-statement {
+
+    grid-template-columns: 1fr;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-statement-small {
+
+    border-right: 0;
+
+    border-bottom:
+      1px solid
+      #000;
+
+    padding:
+      17px 16px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-statement-main {
+
+    min-height: 105px;
+
+    padding:
+      19px 16px;
+
+    font-size:
+      clamp(
+        28px,
+        9vw,
+        44px
+      );
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-statement-circle {
+
+    width: 49px;
+    height: 49px;
+
+    font-size: 18px;
+  }
+
+
+  /* BOTTOM */
+
+  #TrackFooter-{{ section.id }} .tf-bottom {
+
+    min-height: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 16px;
+
+    padding:
+      24px 16px;
+
+    font-size: 7px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-legal {
+
+    flex-wrap: wrap;
+
+    gap:
+      10px 18px;
+  }
+
+
+  #TrackFooter-{{ section.id }} .tf-country {
+
+    text-align: left;
+  }
+
+}
+
+
+/* ==================================================
+   REDUCED MOTION
+================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  #TrackFooter-{{ section.id }} .tf-back-circle,
+  #TrackFooter-{{ section.id }} .tf-statement-circle,
+  #TrackFooter-{{ section.id }} .tf-nav-content {
+
+    transition: none;
+  }
+
+}
+
+</style>
+
+
+<script>
+(function () {
+
+  var footer = document.getElementById(
+    'TrackFooter-{{ section.id }}'
+  );
+
+  if (!footer) return;
+
+
+  /* BACK TO TOP */
+
+  var topButton = footer.querySelector(
+    '[data-tf-top]'
+  );
+
+  if (topButton) {
+
+    topButton.addEventListener(
+      'click',
+      function (event) {
+
+        event.preventDefault();
+
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+
+      }
+    );
+
+  }
+
+
+  /* MOBILE ACCORDION */
+
+  var toggles = footer.querySelectorAll(
+    '[data-tf-toggle]'
+  );
+
+  toggles.forEach(function (toggle) {
+
+    toggle.addEventListener(
+      'click',
+      function () {
+
+        if (
+          window.innerWidth > 749
+        ) {
+          return;
+        }
+
+
+        var column =
+          toggle.closest(
+            '.tf-nav-column'
+          );
+
+        if (!column) return;
+
+
+        var isOpen =
+          column.classList.contains(
+            'is-open'
+          );
+
+
+        footer
+          .querySelectorAll(
+            '.tf-nav-column.is-open'
+          )
+          .forEach(
+            function (openColumn) {
+
+              if (
+                openColumn !== column
+              ) {
+
+                openColumn.classList.remove(
+                  'is-open'
+                );
+
+              }
+
+            }
+          );
+
+
+        column.classList.toggle(
+          'is-open',
+          !isOpen
+        );
+
+      }
+    );
+
+  });
+
+})();
+</script>
+
+
+{% schema %}
+{
+  "name": "Track Footer",
+  "tag": "section",
+  "class": "track-footer-section",
+
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "Brand"
+    },
+
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "TRACK&TREAD"
+    },
+
+    {
+      "type": "richtext",
+      "id": "brand_text",
+      "label": "Brand description",
+      "default": "<p>Performance-inspired essentials made for movement, comfort and everyday life.</p>"
+    },
+
+    {
+      "type": "text",
+      "id": "top_label",
+      "label": "Top right label",
+      "default": "KEEP MOVING"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Shop menu"
+    },
+
+    {
+      "type": "text",
+      "id": "shop_heading",
+      "label": "Heading",
+      "default": "SHOP"
+    },
+
+    {
+      "type": "link_list",
+      "id": "shop_menu",
+      "label": "Shop menu"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Help menu"
+    },
+
+    {
+      "type": "text",
+      "id": "help_heading",
+      "label": "Heading",
+      "default": "HELP"
+    },
+
+    {
+      "type": "link_list",
+      "id": "help_menu",
+      "label": "Help menu"
+    },
+
+
+    {
+      "type": "header",
+      "content": "About menu"
+    },
+
+    {
+      "type": "text",
+      "id": "about_heading",
+      "label": "Heading",
+      "default": "ABOUT"
+    },
+
+    {
+      "type": "link_list",
+      "id": "about_menu",
+      "label": "About menu"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Social"
+    },
+
+    {
+      "type": "text",
+      "id": "social_heading",
+      "label": "Social heading",
+      "default": "FOLLOW"
+    },
+
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+
+    {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "TikTok URL"
+    },
+
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube URL"
+    },
+
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook URL"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Wordmark"
+    },
+
+    {
+      "type": "text",
+      "id": "wordmark_small_left",
+      "label": "Small left text",
+      "default": "PERFORMANCE / MOVEMENT / EVERYDAY"
+    },
+
+    {
+      "type": "text",
+      "id": "wordmark_small_right",
+      "label": "Small right text",
+      "default": "EST. 2026"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Statement"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_statement",
+      "label": "Show lime statement",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "statement_small",
+      "label": "Small text",
+      "default": "YOUR NEXT MOVE"
+    },
+
+    {
+      "type": "text",
+      "id": "statement_large",
+      "label": "Large statement",
+      "default": "MOVE DIFFERENT. WEAR TRACK&TREAD."
+    },
+
+
+    {
+      "type": "header",
+      "content": "Legal"
+    },
+
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "Legal menu"
+    },
+
+    {
+      "type": "text",
+      "id": "copyright_suffix",
+      "label": "Copyright suffix",
+      "default": "ALL RIGHTS RESERVED."
+    },
+
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#080808"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#FFFFFF"
+    },
+
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#8E8E8E"
+    },
+
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Borders",
+      "default": "#292929"
+    },
+
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#C7FF00"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Track Footer"
+    }
+  ]
+}
+{% endschema %}

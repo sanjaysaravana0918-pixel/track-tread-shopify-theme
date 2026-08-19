@@ -1,0 +1,955 @@
+<section
+  id="TrackBenefits-{{ section.id }}"
+  class="track-benefits"
+  style="
+    --tb-bg: {{ section.settings.background_color }};
+    --tb-text: {{ section.settings.text_color }};
+    --tb-accent: {{ section.settings.accent_color }};
+    --tb-muted: {{ section.settings.muted_color }};
+    --tb-border: {{ section.settings.border_color }};
+  "
+>
+
+  <div class="tb-head">
+
+    <div class="tb-head-left">
+      {% if section.settings.eyebrow != blank %}
+        <div class="tb-eyebrow">
+          <span class="tb-eyebrow-dot"></span>
+          <span>{{ section.settings.eyebrow }}</span>
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="tb-heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+    </div>
+
+    {% if section.settings.intro != blank %}
+      <div class="tb-intro">
+        {{ section.settings.intro }}
+      </div>
+    {% endif %}
+
+  </div>
+
+
+  <div class="tb-list">
+
+    <!-- BENEFIT 1 -->
+    <article class="tb-item">
+      <div class="tb-item-bg">
+        {{ section.settings.title_one }}
+      </div>
+
+      <div class="tb-number">
+        01
+      </div>
+
+      <div class="tb-copy">
+        <div class="tb-label">
+          {{ section.settings.label_one }}
+        </div>
+
+        <h3 class="tb-title">
+          {{ section.settings.title_one }}
+        </h3>
+
+        <p class="tb-description">
+          {{ section.settings.text_one }}
+        </p>
+      </div>
+
+      <div class="tb-icon">
+        <span>↗</span>
+      </div>
+    </article>
+
+
+    <!-- BENEFIT 2 -->
+    <article class="tb-item">
+      <div class="tb-item-bg">
+        {{ section.settings.title_two }}
+      </div>
+
+      <div class="tb-number">
+        02
+      </div>
+
+      <div class="tb-copy">
+        <div class="tb-label">
+          {{ section.settings.label_two }}
+        </div>
+
+        <h3 class="tb-title">
+          {{ section.settings.title_two }}
+        </h3>
+
+        <p class="tb-description">
+          {{ section.settings.text_two }}
+        </p>
+      </div>
+
+      <div class="tb-icon">
+        <span>↗</span>
+      </div>
+    </article>
+
+
+    <!-- BENEFIT 3 -->
+    <article class="tb-item">
+      <div class="tb-item-bg">
+        {{ section.settings.title_three }}
+      </div>
+
+      <div class="tb-number">
+        03
+      </div>
+
+      <div class="tb-copy">
+        <div class="tb-label">
+          {{ section.settings.label_three }}
+        </div>
+
+        <h3 class="tb-title">
+          {{ section.settings.title_three }}
+        </h3>
+
+        <p class="tb-description">
+          {{ section.settings.text_three }}
+        </p>
+      </div>
+
+      <div class="tb-icon">
+        <span>↗</span>
+      </div>
+    </article>
+
+
+    <!-- BENEFIT 4 -->
+    <article class="tb-item">
+      <div class="tb-item-bg">
+        {{ section.settings.title_four }}
+      </div>
+
+      <div class="tb-number">
+        04
+      </div>
+
+      <div class="tb-copy">
+        <div class="tb-label">
+          {{ section.settings.label_four }}
+        </div>
+
+        <h3 class="tb-title">
+          {{ section.settings.title_four }}
+        </h3>
+
+        <p class="tb-description">
+          {{ section.settings.text_four }}
+        </p>
+      </div>
+
+      <div class="tb-icon">
+        <span>↗</span>
+      </div>
+    </article>
+
+  </div>
+
+
+  {% if section.settings.show_bottom_strip %}
+    <div class="tb-bottom">
+
+      <div class="tb-bottom-small">
+        {{ section.settings.bottom_small }}
+      </div>
+
+      <div class="tb-bottom-main">
+        {{ section.settings.bottom_large }}
+      </div>
+
+      <div class="tb-bottom-circle">
+        +
+      </div>
+
+    </div>
+  {% endif %}
+
+</section>
+
+
+<style>
+
+#TrackBenefits-{{ section.id }} {
+  position: relative;
+  overflow: hidden;
+
+  background: var(--tb-bg);
+  color: var(--tb-text);
+
+  border-top: 1px solid var(--tb-border);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+#TrackBenefits-{{ section.id }} .tb-head {
+  display: grid;
+  grid-template-columns: 1.45fr .55fr;
+  align-items: end;
+  gap: 50px;
+
+  padding: 76px 30px 42px;
+
+  border-bottom: 1px solid var(--tb-border);
+}
+
+#TrackBenefits-{{ section.id }} .tb-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  margin-bottom: 14px;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: .18em;
+  text-transform: uppercase;
+
+  color: var(--tb-muted);
+}
+
+#TrackBenefits-{{ section.id }} .tb-eyebrow-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--tb-accent);
+}
+
+#TrackBenefits-{{ section.id }} .tb-heading {
+  margin: 0;
+
+  max-width: 1100px;
+
+  font-size: clamp(62px, 6.8vw, 132px);
+  line-height: .82;
+
+  font-weight: 500;
+  letter-spacing: -.07em;
+}
+
+#TrackBenefits-{{ section.id }} .tb-intro {
+  max-width: 360px;
+
+  margin-left: auto;
+
+  font-size: 15px;
+  line-height: 1.45;
+
+  color: var(--tb-muted);
+}
+
+#TrackBenefits-{{ section.id }} .tb-intro p {
+  margin: 0;
+}
+
+
+/* =========================
+   BENEFIT LIST
+========================= */
+
+#TrackBenefits-{{ section.id }} .tb-list {
+  position: relative;
+}
+
+#TrackBenefits-{{ section.id }} .tb-item {
+  position: relative;
+
+  min-height: 230px;
+
+  display: grid;
+  grid-template-columns:
+    100px
+    minmax(0, 1fr)
+    90px;
+
+  align-items: center;
+
+  padding: 0 30px;
+
+  overflow: hidden;
+
+  border-bottom: 1px solid var(--tb-border);
+
+  transition:
+    background .35s ease,
+    color .35s ease;
+}
+
+#TrackBenefits-{{ section.id }} .tb-item-bg {
+  position: absolute;
+
+  z-index: 0;
+
+  left: 120px;
+  top: 50%;
+
+  transform:
+    translateY(-50%)
+    translateX(-50px);
+
+  white-space: nowrap;
+
+  font-size: clamp(90px, 10vw, 180px);
+  line-height: .8;
+
+  font-weight: 500;
+  letter-spacing: -.07em;
+
+  color: rgba(255,255,255,.025);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity .35s ease,
+    transform .55s cubic-bezier(.2,.7,.2,1);
+}
+
+
+/* NUMBER */
+
+#TrackBenefits-{{ section.id }} .tb-number {
+  position: relative;
+  z-index: 2;
+
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255,255,255,.28);
+
+  font-size: 9px;
+  letter-spacing: .12em;
+
+  color: var(--tb-muted);
+
+  transition:
+    background .3s ease,
+    color .3s ease,
+    border-color .3s ease,
+    transform .3s ease;
+}
+
+
+/* COPY */
+
+#TrackBenefits-{{ section.id }} .tb-copy {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns:
+    minmax(260px, .9fr)
+    minmax(280px, 1.1fr);
+
+  align-items: center;
+
+  gap: 40px;
+}
+
+#TrackBenefits-{{ section.id }} .tb-label {
+  grid-column: 1 / -1;
+
+  margin-bottom: -18px;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: .14em;
+  text-transform: uppercase;
+
+  color: var(--tb-muted);
+}
+
+#TrackBenefits-{{ section.id }} .tb-title {
+  margin: 0;
+
+  font-size: clamp(40px, 4.2vw, 76px);
+  line-height: .9;
+
+  font-weight: 500;
+  letter-spacing: -.055em;
+
+  transition:
+    transform .35s ease;
+}
+
+#TrackBenefits-{{ section.id }} .tb-description {
+  margin: 0;
+
+  max-width: 540px;
+
+  font-size: 15px;
+  line-height: 1.5;
+
+  color: var(--tb-muted);
+
+  transition:
+    color .3s ease,
+    transform .35s ease;
+}
+
+
+/* ICON */
+
+#TrackBenefits-{{ section.id }} .tb-icon {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+#TrackBenefits-{{ section.id }} .tb-icon span {
+  width: 58px;
+  height: 58px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255,255,255,.45);
+
+  color: #fff;
+
+  font-size: 20px;
+
+  transition:
+    transform .35s ease,
+    background .35s ease,
+    color .35s ease,
+    border-color .35s ease;
+}
+
+
+/* =========================
+   HOVER
+========================= */
+
+@media (hover:hover) {
+
+  #TrackBenefits-{{ section.id }} .tb-item:hover {
+    background: var(--tb-accent);
+    color: #000;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-item:hover .tb-item-bg {
+    opacity: .09;
+
+    color: #000;
+
+    transform:
+      translateY(-50%)
+      translateX(0);
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-item:hover .tb-number {
+    background: #000;
+    color: var(--tb-accent);
+
+    border-color: #000;
+
+    transform: rotate(-5deg);
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-item:hover .tb-label,
+  #TrackBenefits-{{ section.id }} .tb-item:hover .tb-description {
+    color: rgba(0,0,0,.68);
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-item:hover .tb-title {
+    transform: translateX(8px);
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-item:hover .tb-description {
+    transform: translateX(-5px);
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-item:hover .tb-icon span {
+    background: #000;
+    color: var(--tb-accent);
+
+    border-color: #000;
+
+    transform:
+      rotate(45deg)
+      scale(1.08);
+  }
+
+}
+
+
+/* =========================
+   BOTTOM STRIP
+========================= */
+
+#TrackBenefits-{{ section.id }} .tb-bottom {
+  min-height: 135px;
+
+  display: grid;
+  grid-template-columns:
+    260px
+    minmax(0,1fr)
+    70px;
+
+  align-items: center;
+
+  gap: 30px;
+
+  padding: 22px 30px;
+
+  background: #0c0c0c;
+
+  border-bottom: 1px solid var(--tb-border);
+}
+
+#TrackBenefits-{{ section.id }} .tb-bottom-small {
+  font-size: 9px;
+
+  letter-spacing: .14em;
+  text-transform: uppercase;
+
+  color: var(--tb-muted);
+}
+
+#TrackBenefits-{{ section.id }} .tb-bottom-main {
+  font-size: clamp(28px, 3vw, 56px);
+  line-height: .95;
+
+  font-weight: 500;
+  letter-spacing: -.045em;
+}
+
+#TrackBenefits-{{ section.id }} .tb-bottom-circle {
+  width: 56px;
+  height: 56px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--tb-accent);
+  color: #000;
+
+  font-size: 24px;
+
+  transition:
+    transform .35s ease;
+}
+
+#TrackBenefits-{{ section.id }} .tb-bottom:hover .tb-bottom-circle {
+  transform: rotate(90deg);
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media screen and (max-width: 989px) {
+
+  #TrackBenefits-{{ section.id }} .tb-head {
+    grid-template-columns: 1fr;
+
+    gap: 22px;
+
+    padding: 54px 20px 30px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-intro {
+    margin-left: 0;
+
+    max-width: 500px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-item {
+    grid-template-columns:
+      70px
+      minmax(0,1fr)
+      70px;
+
+    min-height: 250px;
+
+    padding: 0 20px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-copy {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-label {
+    margin-bottom: -4px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-description {
+    max-width: 600px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-bottom {
+    grid-template-columns:
+      180px
+      1fr
+      60px;
+
+    padding: 20px;
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media screen and (max-width: 749px) {
+
+  #TrackBenefits-{{ section.id }} .tb-head {
+    padding: 42px 16px 24px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-heading {
+    font-size: clamp(50px, 15vw, 76px);
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-intro {
+    font-size: 14px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-item {
+    grid-template-columns:
+      42px
+      minmax(0,1fr);
+
+    gap: 14px;
+
+    min-height: 0;
+
+    padding: 28px 16px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-number {
+    width: 38px;
+    height: 38px;
+
+    font-size: 8px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-copy {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-label {
+    margin-bottom: 0;
+
+    font-size: 8px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-title {
+    font-size: clamp(38px, 11vw, 56px);
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-description {
+    font-size: 14px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-icon {
+    grid-column: 2;
+
+    justify-content: flex-start;
+
+    margin-top: 8px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-icon span {
+    width: 44px;
+    height: 44px;
+
+    font-size: 16px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-item-bg {
+    display: none;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-bottom {
+    grid-template-columns:
+      1fr auto;
+
+    gap: 16px;
+
+    padding: 22px 16px;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-bottom-small {
+    grid-column: 1 / -1;
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-bottom-main {
+    font-size: clamp(28px, 9vw, 42px);
+  }
+
+  #TrackBenefits-{{ section.id }} .tb-bottom-circle {
+    width: 48px;
+    height: 48px;
+
+    font-size: 20px;
+  }
+
+}
+
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  #TrackBenefits-{{ section.id }} .tb-item,
+  #TrackBenefits-{{ section.id }} .tb-item-bg,
+  #TrackBenefits-{{ section.id }} .tb-number,
+  #TrackBenefits-{{ section.id }} .tb-title,
+  #TrackBenefits-{{ section.id }} .tb-description,
+  #TrackBenefits-{{ section.id }} .tb-icon span {
+    transition: none;
+  }
+
+}
+
+</style>
+
+
+{% schema %}
+{
+  "name": "Track Benefits",
+  "tag": "section",
+  "class": "track-benefits-section",
+
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "WHY TRACK&TREAD"
+    },
+
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "MADE TO MOVE WITH YOU"
+    },
+
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro",
+      "default": "<p>Performance-focused essentials designed around comfort, movement and an easier everyday experience.</p>"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Benefit 1"
+    },
+
+    {
+      "type": "text",
+      "id": "label_one",
+      "label": "Label",
+      "default": "PERFORMANCE"
+    },
+
+    {
+      "type": "text",
+      "id": "title_one",
+      "label": "Title",
+      "default": "BUILT TO MOVE"
+    },
+
+    {
+      "type": "textarea",
+      "id": "text_one",
+      "label": "Description",
+      "default": "Performance-focused construction designed to support natural movement through training, travel and everyday wear."
+    },
+
+
+    {
+      "type": "header",
+      "content": "Benefit 2"
+    },
+
+    {
+      "type": "text",
+      "id": "label_two",
+      "label": "Label",
+      "default": "COMFORT"
+    },
+
+    {
+      "type": "text",
+      "id": "title_two",
+      "label": "Title",
+      "default": "ALL-DAY COMFORT"
+    },
+
+    {
+      "type": "textarea",
+      "id": "text_two",
+      "label": "Description",
+      "default": "Lightweight cushioning and supportive materials built to stay comfortable from your first step to your last."
+    },
+
+
+    {
+      "type": "header",
+      "content": "Benefit 3"
+    },
+
+    {
+      "type": "text",
+      "id": "label_three",
+      "label": "Label",
+      "default": "EASY SHOPPING"
+    },
+
+    {
+      "type": "text",
+      "id": "title_three",
+      "label": "Title",
+      "default": "30-DAY RETURNS"
+    },
+
+    {
+      "type": "textarea",
+      "id": "text_three",
+      "label": "Description",
+      "default": "Changed your mind? Enjoy simple 30-day returns designed to make finding your right fit easier."
+    },
+
+
+    {
+      "type": "header",
+      "content": "Benefit 4"
+    },
+
+    {
+      "type": "text",
+      "id": "label_four",
+      "label": "Label",
+      "default": "SECURITY"
+    },
+
+    {
+      "type": "text",
+      "id": "title_four",
+      "label": "Title",
+      "default": "SECURE CHECKOUT"
+    },
+
+    {
+      "type": "textarea",
+      "id": "text_four",
+      "label": "Description",
+      "default": "A simple, secure checkout experience designed to help you shop confidently from start to finish."
+    },
+
+
+    {
+      "type": "checkbox",
+      "id": "show_bottom_strip",
+      "label": "Show bottom statement",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "bottom_small",
+      "label": "Bottom small text",
+      "default": "TRACK&TREAD / EVERYDAY PERFORMANCE"
+    },
+
+    {
+      "type": "text",
+      "id": "bottom_large",
+      "label": "Bottom large text",
+      "default": "MOVE BETTER. FEEL BETTER. GO FURTHER."
+    },
+
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#080808"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#FFFFFF"
+    },
+
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#9C9C9C"
+    },
+
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Borders",
+      "default": "#2A2A2A"
+    },
+
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#C7FF00"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Track Benefits"
+    }
+  ]
+}
+{% endschema %}

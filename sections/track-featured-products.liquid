@@ -1,0 +1,1367 @@
+<section
+  id="TrackFeaturedProducts-{{ section.id }}"
+  class="track-featured-products"
+  style="
+    --tfp-bg: {{ section.settings.background_color }};
+    --tfp-text: {{ section.settings.text_color }};
+    --tfp-border: {{ section.settings.border_color }};
+    --tfp-accent: {{ section.settings.accent_color }};
+  "
+>
+
+  <div class="tfp-header">
+    <div>
+      {% if section.settings.eyebrow != blank %}
+        <p class="tfp-eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="tfp-heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+    </div>
+
+    {% if section.settings.show_view_all and section.settings.collection != blank %}
+      <a class="tfp-view-all" href="{{ section.settings.collection.url }}">
+        <span>View All</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    {% endif %}
+  </div>
+
+
+  {% if section.settings.collection != blank %}
+
+    <div class="tfp-grid">
+
+      {% for product in section.settings.collection.products limit: section.settings.products_to_show %}
+
+        {% assign initial_variant = product.selected_or_first_available_variant %}
+        {% assign initial_image = initial_variant.featured_image | default: product.featured_image %}
+
+        <article
+          class="tfp-card"
+          data-tfp-card
+          data-product-url="{{ product.url }}"
+        >
+
+          <a
+            href="{{ product.url }}?variant={{ initial_variant.id }}"
+            class="tfp-media"
+            data-tfp-product-link
+          >
+
+            {% if initial_image != blank %}
+              <img
+                src="{{ initial_image | image_url: width: 1000 }}"
+                alt="{{ initial_image.alt | default: product.title | escape }}"
+                width="{{ initial_image.width }}"
+                height="{{ initial_image.height }}"
+                class="tfp-image"
+                loading="lazy"
+                data-tfp-image
+              >
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'tfp-placeholder' }}
+            {% endif %}
+
+            <span class="tfp-glow"></span>
+
+            <div class="tfp-badges">
+
+              {% if initial_variant.compare_at_price > initial_variant.price %}
+                {% assign saving = initial_variant.compare_at_price | minus: initial_variant.price %}
+                {% assign saving_percent = saving
+                  | times: 100.0
+                  | divided_by: initial_variant.compare_at_price
+                  | round
+                %}
+
+                <span
+                  class="tfp-badge tfp-badge--sale"
+                  data-tfp-sale
+                >
+                  -{{ saving_percent }}%
+                </span>
+              {% endif %}
+
+              {% if section.settings.show_featured_badge %}
+                <span class="tfp-badge tfp-badge--featured">
+                  {{ section.settings.featured_badge_text }}
+                </span>
+              {% endif %}
+
+            </div>
+
+            <div class="tfp-hover-action">
+              <span>View Product</span>
+              <span>↗</span>
+            </div>
+
+          </a>
+
+
+          <div class="tfp-info">
+
+            <div class="tfp-title-row">
+
+              <a
+                href="{{ product.url }}?variant={{ initial_variant.id }}"
+                class="tfp-title"
+                data-tfp-title-link
+              >
+                {{ product.title }}
+              </a>
+
+              <span class="tfp-number">
+                {% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}
+              </span>
+
+            </div>
+
+
+            {% if section.settings.show_swatches %}
+
+              {% for option in product.options_with_values %}
+
+                {% assign option_name_downcase = option.name | downcase %}
+
+                {% if option_name_downcase contains 'color' or option_name_downcase contains 'colour' %}
+
+                  <div class="tfp-color-block">
+
+                    <div class="tfp-color-meta">
+                      <span>Color</span>
+                      <strong data-tfp-color-name>
+                        {{ option.selected_value }}
+                      </strong>
+                    </div>
+
+
+                    <div class="tfp-swatches">
+
+                      {% for option_value in option.values limit: 6 %}
+
+                        {% assign color_name = option_value.name %}
+                        {% assign color_handle = color_name | handleize %}
+                        {% assign color_variant = blank %}
+
+                        {% for variant in product.variants %}
+
+                          {% assign variant_value = '' %}
+
+                          {% if option.position == 1 %}
+                            {% assign variant_value = variant.option1 %}
+                          {% elsif option.position == 2 %}
+                            {% assign variant_value = variant.option2 %}
+                          {% elsif option.position == 3 %}
+                            {% assign variant_value = variant.option3 %}
+                          {% endif %}
+
+                          {% if variant_value == color_name %}
+                            {% assign color_variant = variant %}
+                            {% break %}
+                          {% endif %}
+
+                        {% endfor %}
+
+
+                        {% if color_variant == blank %}
+                          {% assign color_variant = initial_variant %}
+                        {% endif %}
+
+
+                        {% assign color_image = color_variant.featured_image | default: product.featured_image %}
+
+
+                        <button
+                          type="button"
+                          class="tfp-swatch tfp-color--{{ color_handle }}{% if color_name == option.selected_value %} is-active{% endif %}"
+                          aria-label="{{ color_name | escape }}"
+                          title="{{ color_name | escape }}"
+                          data-tfp-swatch
+                          data-color="{{ color_name | escape }}"
+                          data-variant-id="{{ color_variant.id }}"
+                          data-variant-url="{{ product.url }}?variant={{ color_variant.id }}"
+                          data-price="{{ color_variant.price | money | escape }}"
+                          data-compare="{% if color_variant.compare_at_price > color_variant.price %}{{ color_variant.compare_at_price | money | escape }}{% endif %}"
+                          {% if color_image != blank %}
+                            data-image="{{ color_image | image_url: width: 1000 }}"
+                          {% endif %}
+                        >
+                          <span class="tfp-swatch-color"></span>
+                        </button>
+
+                      {% endfor %}
+
+                    </div>
+
+                  </div>
+
+                {% endif %}
+
+              {% endfor %}
+
+            {% endif %}
+
+
+            <div class="tfp-footer">
+
+              <div class="tfp-prices">
+
+                <span class="tfp-price" data-tfp-price>
+                  {{ initial_variant.price | money }}
+                </span>
+
+                <span
+                  class="tfp-compare"
+                  data-tfp-compare
+                  {% unless initial_variant.compare_at_price > initial_variant.price %}
+                    hidden
+                  {% endunless %}
+                >
+                  {% if initial_variant.compare_at_price > initial_variant.price %}
+                    {{ initial_variant.compare_at_price | money }}
+                  {% endif %}
+                </span>
+
+              </div>
+
+
+              {% if section.settings.enable_quick_add %}
+
+                {% if product.available %}
+
+                  <form
+                    action="{{ routes.cart_add_url }}"
+                    method="post"
+                    class="tfp-form"
+                  >
+
+                    <input
+                      type="hidden"
+                      name="id"
+                      value="{{ initial_variant.id }}"
+                      data-tfp-variant-input
+                    >
+
+                    <button
+                      type="submit"
+                      class="tfp-add"
+                    >
+                      <span>Add</span>
+                      <span class="tfp-add-icon">+</span>
+                    </button>
+
+                  </form>
+
+                {% else %}
+
+                  <span class="tfp-sold-out">Sold Out</span>
+
+                {% endif %}
+
+              {% endif %}
+
+            </div>
+
+          </div>
+
+        </article>
+
+      {% endfor %}
+
+    </div>
+
+
+    {% if section.settings.show_mobile_hint %}
+      <div class="tfp-mobile-hint">
+        <span>Swipe to explore</span>
+        <span>→</span>
+      </div>
+    {% endif %}
+
+
+  {% else %}
+
+    <div class="tfp-empty">
+      Select a collection in the Theme Editor.
+    </div>
+
+  {% endif %}
+
+</section>
+
+
+<style>
+
+#TrackFeaturedProducts-{{ section.id }} {
+  background: var(--tfp-bg);
+  color: var(--tfp-text);
+  border-top: 1px solid var(--tfp-border);
+}
+
+
+/* HEADER */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+
+  padding: 60px 28px 36px;
+
+  border-bottom: 1px solid var(--tfp-border);
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-eyebrow {
+  margin: 0 0 12px;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: .18em;
+  text-transform: uppercase;
+
+  opacity: .5;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-heading {
+  margin: 0;
+
+  color: inherit;
+
+  font-size: clamp(62px, 6.6vw, 126px);
+  line-height: .84;
+
+  font-weight: 500;
+
+  letter-spacing: -.065em;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-view-all {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 9px;
+
+  padding-bottom: 7px;
+
+  color: inherit;
+  text-decoration: none;
+
+  border-bottom: 1px solid currentColor;
+
+  font-size: 14px;
+
+  transition:
+    gap .25s ease,
+    opacity .25s ease;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-view-all:hover {
+  gap: 15px;
+  opacity: .55;
+}
+
+
+/* GRID */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+
+/* CARD */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-card {
+  min-width: 0;
+
+  border-right: 1px solid var(--tfp-border);
+  border-bottom: 1px solid var(--tfp-border);
+
+  background: var(--tfp-bg);
+
+  transition:
+    background .3s ease;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-card:nth-child(5n) {
+  border-right: 0;
+}
+
+@media (hover:hover) {
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-card:hover {
+    background: #ecece8;
+  }
+
+}
+
+
+/* MEDIA */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-media {
+  position: relative;
+
+  display: block;
+
+  width: calc(100% - 28px);
+  margin: 14px;
+
+  aspect-ratio: 1 / 1.05;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fafafa,
+      #f1f1ef
+    );
+
+  color: inherit;
+  text-decoration: none;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-image,
+#TrackFeaturedProducts-{{ section.id }} .tfp-placeholder {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  padding: 18px;
+
+  transition:
+    transform .5s cubic-bezier(.2,.7,.2,1),
+    opacity .18s ease;
+}
+
+@media (hover:hover) {
+
+  #TrackFeaturedProducts-{{ section.id }}
+  .tfp-card:hover
+  .tfp-image {
+
+    transform: scale(1.045);
+  }
+
+}
+
+
+/* IMAGE GLOW */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-glow {
+  position: absolute;
+
+  left: 20%;
+  right: 20%;
+  bottom: 13%;
+
+  height: 15%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(199,255,0,.13),
+      transparent 70%
+    );
+
+  filter: blur(15px);
+
+  pointer-events: none;
+}
+
+
+/* BADGES */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-badges {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  z-index: 4;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 5px;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-badge {
+  min-height: 24px;
+
+  padding: 0 8px;
+
+  display: inline-flex;
+  align-items: center;
+
+  font-size: 9px;
+  line-height: 1;
+
+  font-weight: 700;
+
+  letter-spacing: .06em;
+
+  text-transform: uppercase;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-badge--sale {
+  background: #ff3131;
+  color: #fff;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-badge--featured {
+  background: #6236ff;
+  color: #fff;
+}
+
+
+/* VIEW PRODUCT */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-hover-action {
+  position: absolute;
+
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+
+  z-index: 5;
+
+  min-height: 46px;
+
+  padding: 0 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: rgba(0,0,0,.92);
+
+  color: #fff;
+
+  font-size: 10px;
+  letter-spacing: .1em;
+
+  text-transform: uppercase;
+
+  transform: translateY(70px);
+
+  transition:
+    transform .3s ease;
+}
+
+@media (hover:hover) {
+
+  #TrackFeaturedProducts-{{ section.id }}
+  .tfp-card:hover
+  .tfp-hover-action {
+
+    transform: translateY(0);
+  }
+
+}
+
+
+/* PRODUCT INFO */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-info {
+  padding: 5px 16px 18px;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-title-row {
+  min-height: 56px;
+
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-title {
+  color: inherit;
+
+  text-decoration: none;
+
+  font-size: 17px;
+
+  line-height: 1.15;
+
+  font-weight: 500;
+
+  letter-spacing: -.03em;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-number {
+  font-size: 8px;
+
+  letter-spacing: .1em;
+
+  opacity: .25;
+}
+
+
+/* COLOR META */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-color-block {
+  margin-top: 2px;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-color-meta {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 20px;
+
+  margin-bottom: 8px;
+
+  font-size: 8px;
+
+  letter-spacing: .13em;
+
+  text-transform: uppercase;
+
+  opacity: .5;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-color-meta strong {
+  font-weight: 500;
+}
+
+
+/* SWATCHES */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-swatches {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  min-height: 38px;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-swatch {
+  appearance: none;
+
+  position: relative;
+
+  width: 28px;
+  height: 28px;
+
+  padding: 3px;
+
+  border: 1px solid transparent;
+  border-radius: 50%;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    border-color .2s ease,
+    transform .2s ease;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-swatch:hover {
+  transform: scale(1.12);
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-swatch.is-active {
+  border-color: #111;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-swatch-color {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(0,0,0,.12);
+
+  background: #d0d0d0;
+}
+
+
+/* COLOR MAP */
+
+#TrackFeaturedProducts-{{ section.id }}
+.tfp-color--black .tfp-swatch-color {
+  background: #111;
+}
+
+#TrackFeaturedProducts-{{ section.id }}
+.tfp-color--white .tfp-swatch-color {
+  background: #fff;
+}
+
+#TrackFeaturedProducts-{{ section.id }}
+.tfp-color--grey .tfp-swatch-color,
+
+#TrackFeaturedProducts-{{ section.id }}
+.tfp-color--gray .tfp-swatch-color,
+
+#TrackFeaturedProducts-{{ section.id }}
+.tfp-color--ice-grey .tfp-swatch-color,
+
+#TrackFeaturedProducts-{{ section.id }}
+.tfp-color--core-grey .tfp-swatch-color {
+  background: #a9aaac;
+}
+
+#TrackFeaturedProducts-{{ section.id }}
+.tfp-color--red .tfp-swatch-color {
+  background: #ff3144;
+}
+
+#TrackFeaturedProducts-{{ section.id }}
+.tfp-color--yellow .tfp-swatch-color {
+  background: #ffdc18;
+}
+
+#TrackFeaturedProducts-{{ section.id }}
+.tfp-color--green .tfp-swatch-color {
+  background: #adff00;
+}
+
+#TrackFeaturedProducts-{{ section.id }}
+.tfp-color--hyperlime .tfp-swatch-color {
+  background: #bdff00;
+}
+
+#TrackFeaturedProducts-{{ section.id }}
+.tfp-color--blue .tfp-swatch-color {
+  background: #3c82ff;
+}
+
+#TrackFeaturedProducts-{{ section.id }}
+.tfp-color--beige .tfp-swatch-color {
+  background: #ddd5ca;
+}
+
+#TrackFeaturedProducts-{{ section.id }}
+.tfp-color--stone .tfp-swatch-color {
+  background: #d2cdc4;
+}
+
+
+/* PRICE */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-footer {
+  margin-top: 13px;
+
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-prices {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: baseline;
+
+  gap: 6px;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-price {
+  font-size: 21px;
+
+  line-height: 1;
+
+  font-weight: 500;
+
+  letter-spacing: -.04em;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-compare {
+  font-size: 11px;
+
+  text-decoration: line-through;
+
+  opacity: .35;
+}
+
+
+/* ADD BUTTON */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-add {
+  appearance: none;
+
+  min-width: 96px;
+  min-height: 40px;
+
+  padding: 0 7px 0 13px;
+
+  border: 1px solid #000;
+
+  background: #000;
+
+  color: #fff;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 14px;
+
+  cursor: pointer;
+
+  font: inherit;
+
+  font-size: 9px;
+
+  letter-spacing: .06em;
+
+  text-transform: uppercase;
+
+  transition:
+    background .25s ease,
+    color .25s ease,
+    transform .25s ease;
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-add:hover {
+  background: var(--tfp-accent);
+
+  color: #000;
+
+  transform: translateY(-2px);
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-add-icon {
+  width: 24px;
+  height: 24px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,.14);
+}
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-add:hover .tfp-add-icon {
+  background: rgba(0,0,0,.1);
+}
+
+
+/* EMPTY */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-empty {
+  padding: 80px 28px;
+}
+
+
+/* MOBILE HINT */
+
+#TrackFeaturedProducts-{{ section.id }} .tfp-mobile-hint {
+  display: none;
+}
+
+
+/* TABLET */
+
+@media screen and (max-width:1199px) {
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-grid {
+    grid-template-columns:
+      repeat(3, minmax(0,1fr));
+  }
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-card {
+    border-right:
+      1px solid
+      var(--tfp-border) !important;
+  }
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-card:nth-child(3n) {
+    border-right: 0 !important;
+  }
+
+}
+
+
+/* MOBILE */
+
+@media screen and (max-width:749px) {
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-header {
+    padding: 38px 16px 23px;
+  }
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-heading {
+    font-size: clamp(46px, 15vw, 72px);
+  }
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-view-all {
+    font-size: 11px;
+  }
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-grid {
+    display: flex;
+
+    overflow-x: auto;
+
+    scroll-snap-type: x mandatory;
+
+    scrollbar-width: none;
+  }
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-card {
+    flex: 0 0 82vw;
+
+    max-width: 82vw;
+
+    scroll-snap-align: start;
+
+    border-right:
+      1px solid
+      var(--tfp-border) !important;
+  }
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-media {
+    margin: 10px;
+
+    width: calc(100% - 20px);
+  }
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-hover-action {
+    display: none;
+  }
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-info {
+    padding: 5px 15px 17px;
+  }
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-title {
+    font-size: 18px;
+  }
+
+  #TrackFeaturedProducts-{{ section.id }} .tfp-mobile-hint {
+    min-height: 52px;
+
+    padding: 0 16px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border-top:
+      1px solid
+      var(--tfp-border);
+
+    font-size: 10px;
+
+    letter-spacing: .1em;
+
+    text-transform: uppercase;
+
+    opacity: .55;
+  }
+
+}
+
+</style>
+
+
+<script>
+(function () {
+
+  var section =
+    document.getElementById(
+      'TrackFeaturedProducts-{{ section.id }}'
+    );
+
+  if (!section) {
+    return;
+  }
+
+
+  var cards =
+    section.querySelectorAll(
+      '[data-tfp-card]'
+    );
+
+
+  cards.forEach(function (card) {
+
+    var image =
+      card.querySelector(
+        '[data-tfp-image]'
+      );
+
+    var colorName =
+      card.querySelector(
+        '[data-tfp-color-name]'
+      );
+
+    var price =
+      card.querySelector(
+        '[data-tfp-price]'
+      );
+
+    var compare =
+      card.querySelector(
+        '[data-tfp-compare]'
+      );
+
+    var variantInput =
+      card.querySelector(
+        '[data-tfp-variant-input]'
+      );
+
+    var productLink =
+      card.querySelector(
+        '[data-tfp-product-link]'
+      );
+
+    var titleLink =
+      card.querySelector(
+        '[data-tfp-title-link]'
+      );
+
+    var swatches =
+      card.querySelectorAll(
+        '[data-tfp-swatch]'
+      );
+
+
+    swatches.forEach(function (swatch) {
+
+      swatch.addEventListener(
+        'click',
+        function () {
+
+          var newColor =
+            swatch.getAttribute(
+              'data-color'
+            );
+
+          var newVariantId =
+            swatch.getAttribute(
+              'data-variant-id'
+            );
+
+          var newUrl =
+            swatch.getAttribute(
+              'data-variant-url'
+            );
+
+          var newPrice =
+            swatch.getAttribute(
+              'data-price'
+            );
+
+          var newCompare =
+            swatch.getAttribute(
+              'data-compare'
+            );
+
+          var newImage =
+            swatch.getAttribute(
+              'data-image'
+            );
+
+
+          /* ACTIVE SWATCH */
+
+          swatches.forEach(
+            function (item) {
+
+              item.classList.remove(
+                'is-active'
+              );
+
+            }
+          );
+
+          swatch.classList.add(
+            'is-active'
+          );
+
+
+          /* COLOR TEXT */
+
+          if (colorName && newColor) {
+
+            colorName.textContent =
+              newColor;
+
+          }
+
+
+          /* IMAGE */
+
+          if (image && newImage) {
+
+            image.style.opacity = '0';
+
+            image.style.transform =
+              'scale(.96)';
+
+
+            var preload =
+              new Image();
+
+
+            preload.onload =
+              function () {
+
+                image.removeAttribute(
+                  'srcset'
+                );
+
+                image.src =
+                  newImage;
+
+                image.style.opacity =
+                  '1';
+
+                image.style.transform =
+                  'scale(1)';
+
+              };
+
+
+            preload.onerror =
+              function () {
+
+                image.style.opacity =
+                  '1';
+
+                image.style.transform =
+                  'scale(1)';
+
+              };
+
+
+            preload.src =
+              newImage;
+
+          }
+
+
+          /* PRICE */
+
+          if (price && newPrice) {
+
+            price.textContent =
+              newPrice;
+
+          }
+
+
+          /* COMPARE PRICE */
+
+          if (compare) {
+
+            if (newCompare) {
+
+              compare.textContent =
+                newCompare;
+
+              compare.hidden =
+                false;
+
+            } else {
+
+              compare.textContent =
+                '';
+
+              compare.hidden =
+                true;
+
+            }
+
+          }
+
+
+          /* QUICK ADD VARIANT */
+
+          if (
+            variantInput &&
+            newVariantId
+          ) {
+
+            variantInput.value =
+              newVariantId;
+
+          }
+
+
+          /* LINKS */
+
+          if (newUrl) {
+
+            if (productLink) {
+
+              productLink.href =
+                newUrl;
+
+            }
+
+            if (titleLink) {
+
+              titleLink.href =
+                newUrl;
+
+            }
+
+          }
+
+        }
+      );
+
+    });
+
+  });
+
+})();
+</script>
+
+
+{% schema %}
+{
+  "name": "Track Featured Products",
+  "tag": "section",
+  "class": "track-featured-products-section",
+
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "MOST WANTED"
+    },
+
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "BEST SELLERS"
+    },
+
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show View All",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_swatches",
+      "label": "Show clickable color swatches",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "enable_quick_add",
+      "label": "Enable Quick Add",
+      "default": true
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_featured_badge",
+      "label": "Show featured badge",
+      "default": true
+    },
+
+    {
+      "type": "text",
+      "id": "featured_badge_text",
+      "label": "Featured badge text",
+      "default": "BEST SELLER"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_mobile_hint",
+      "label": "Show mobile swipe hint",
+      "default": true
+    },
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F3F3F1"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Borders",
+      "default": "#111111"
+    },
+
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#C7FF00"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Track Featured Products"
+    }
+  ]
+}
+{% endschema %}

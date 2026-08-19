@@ -1,0 +1,1309 @@
+<section
+  id="TrackCommunityCTA-{{ section.id }}"
+  class="track-community-cta"
+  style="
+    --tcc-bg: {{ section.settings.background_color }};
+    --tcc-text: {{ section.settings.text_color }};
+    --tcc-accent: {{ section.settings.accent_color }};
+    --tcc-border: {{ section.settings.border_color }};
+    --tcc-muted: {{ section.settings.muted_color }};
+  "
+>
+
+  <!-- =========================
+       TOP INTRO
+  ========================== -->
+  <div class="tcc-head">
+
+    <div class="tcc-head-left">
+
+      {% if section.settings.eyebrow != blank %}
+        <div class="tcc-eyebrow">
+          <span class="tcc-eyebrow-dot"></span>
+          {{ section.settings.eyebrow }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="tcc-heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+    </div>
+
+
+    <div class="tcc-head-right">
+
+      {% if section.settings.intro != blank %}
+        <div class="tcc-intro">
+          {{ section.settings.intro }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.button_label != blank %}
+        <a
+          class="tcc-main-button"
+          {% if section.settings.button_link != blank %}
+            href="{{ section.settings.button_link }}"
+          {% else %}
+            role="link"
+            aria-disabled="true"
+          {% endif %}
+        >
+          <span>{{ section.settings.button_label }}</span>
+
+          <span class="tcc-main-button-circle">
+            ↗
+          </span>
+        </a>
+      {% endif %}
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       CAMPAIGN IMAGE
+  ========================== -->
+  <div class="tcc-visual">
+
+    {% if section.settings.image != blank %}
+
+      {{
+        section.settings.image
+        | image_url: width: 2200
+        | image_tag:
+          class: 'tcc-image',
+          loading: 'lazy',
+          widths: '900, 1200, 1600, 2000, 2200',
+          sizes: '100vw',
+          alt: section.settings.image.alt
+      }}
+
+    {% else %}
+
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'tcc-placeholder' }}
+
+    {% endif %}
+
+
+    <div class="tcc-overlay"></div>
+
+
+    <!-- FLOATING LABEL -->
+    <div class="tcc-image-label">
+      <span>TRACK&TREAD</span>
+      <span>COMMUNITY / 2026</span>
+    </div>
+
+
+    <!-- LARGE STATEMENT -->
+    {% if section.settings.image_statement != blank %}
+      <div class="tcc-image-statement">
+        {{ section.settings.image_statement }}
+      </div>
+    {% endif %}
+
+
+    <!-- FLOATING STATS -->
+    <div class="tcc-stats">
+
+      <div class="tcc-stat">
+        <span class="tcc-stat-number">
+          {{ section.settings.stat_one_number }}
+        </span>
+
+        <span class="tcc-stat-label">
+          {{ section.settings.stat_one_label }}
+        </span>
+      </div>
+
+
+      <div class="tcc-stat">
+        <span class="tcc-stat-number">
+          {{ section.settings.stat_two_number }}
+        </span>
+
+        <span class="tcc-stat-label">
+          {{ section.settings.stat_two_label }}
+        </span>
+      </div>
+
+
+      <div class="tcc-stat">
+        <span class="tcc-stat-number">
+          {{ section.settings.stat_three_number }}
+        </span>
+
+        <span class="tcc-stat-label">
+          {{ section.settings.stat_three_label }}
+        </span>
+      </div>
+
+    </div>
+
+
+    <!-- IMAGE CTA -->
+    {% if section.settings.secondary_label != blank %}
+      <a
+        class="tcc-image-cta"
+        {% if section.settings.secondary_link != blank %}
+          href="{{ section.settings.secondary_link }}"
+        {% else %}
+          role="link"
+          aria-disabled="true"
+        {% endif %}
+      >
+        <span>{{ section.settings.secondary_label }}</span>
+        <span>→</span>
+      </a>
+    {% endif %}
+
+  </div>
+
+
+  <!-- =========================
+       MOVEMENT STRIP
+  ========================== -->
+  {% if section.settings.show_movement_strip %}
+
+    <div class="tcc-strip">
+
+      <div class="tcc-strip-track">
+
+        {% for repeat in (1..2) %}
+
+          <div class="tcc-strip-group">
+
+            <span>MOVE TOGETHER</span>
+            <span class="tcc-strip-star">✦</span>
+
+            <span>TRAIN TOGETHER</span>
+            <span class="tcc-strip-star">✦</span>
+
+            <span>GO FURTHER</span>
+            <span class="tcc-strip-star">✦</span>
+
+            <span>TRACK&TREAD</span>
+            <span class="tcc-strip-star">✦</span>
+
+          </div>
+
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  {% endif %}
+
+
+  <!-- =========================
+       BOTTOM MESSAGE
+  ========================== -->
+  <div class="tcc-bottom">
+
+    <div class="tcc-bottom-small">
+      {{ section.settings.bottom_small }}
+    </div>
+
+    <div class="tcc-bottom-main">
+      {{ section.settings.bottom_large }}
+    </div>
+
+    <div class="tcc-bottom-circle">
+      +
+    </div>
+
+  </div>
+
+</section>
+
+
+<style>
+
+/* ==================================================
+   BASE
+================================================== */
+
+#TrackCommunityCTA-{{ section.id }} {
+  background: var(--tcc-bg);
+  color: var(--tcc-text);
+
+  overflow: hidden;
+
+  border-top: 1px solid var(--tcc-border);
+}
+
+
+/* ==================================================
+   HEADER
+================================================== */
+
+#TrackCommunityCTA-{{ section.id }} .tcc-head {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.45fr)
+    minmax(300px, .55fr);
+
+  gap: 60px;
+
+  align-items: end;
+
+  padding:
+    78px 30px
+    42px;
+
+  border-bottom:
+    1px solid
+    var(--tcc-border);
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-eyebrow {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 14px;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: .18em;
+
+  text-transform: uppercase;
+
+  color: var(--tcc-muted);
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-eyebrow-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--tcc-accent);
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-heading {
+  margin: 0;
+
+  max-width: 1180px;
+
+  font-size:
+    clamp(
+      64px,
+      7.2vw,
+      140px
+    );
+
+  line-height: .82;
+
+  font-weight: 500;
+
+  letter-spacing: -.072em;
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-head-right {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 28px;
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-intro {
+  max-width: 390px;
+
+  font-size: 15px;
+
+  line-height: 1.5;
+
+  color: var(--tcc-muted);
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-intro p {
+  margin: 0;
+}
+
+
+/* ==================================================
+   MAIN BUTTON
+================================================== */
+
+#TrackCommunityCTA-{{ section.id }} .tcc-main-button {
+  min-width: 230px;
+  min-height: 60px;
+
+  padding:
+    0 9px
+    0 18px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 22px;
+
+  background: var(--tcc-text);
+
+  color: var(--tcc-bg);
+
+  text-decoration: none;
+
+  border:
+    1px solid
+    var(--tcc-text);
+
+  font-size: 10px;
+
+  letter-spacing: .12em;
+
+  text-transform: uppercase;
+
+  transition:
+    transform .3s ease,
+    background .3s ease,
+    color .3s ease;
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-main-button-circle {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 auto;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: var(--tcc-accent);
+
+  color: #000;
+
+  font-size: 18px;
+
+  transition:
+    transform .3s ease;
+}
+
+
+@media (hover:hover) {
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-main-button:hover {
+    transform: translateY(-3px);
+
+    background: var(--tcc-accent);
+
+    color: #000;
+  }
+
+  #TrackCommunityCTA-{{ section.id }}
+  .tcc-main-button:hover
+  .tcc-main-button-circle {
+
+    background: #000;
+    color: var(--tcc-accent);
+
+    transform:
+      rotate(45deg)
+      scale(1.05);
+  }
+
+}
+
+
+/* ==================================================
+   VISUAL
+================================================== */
+
+#TrackCommunityCTA-{{ section.id }} .tcc-visual {
+  position: relative;
+
+  min-height: 820px;
+
+  overflow: hidden;
+
+  background: #111;
+
+  border-bottom:
+    1px solid
+    var(--tcc-border);
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-image,
+#TrackCommunityCTA-{{ section.id }} .tcc-placeholder {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    transform 1.2s
+    cubic-bezier(.2,.7,.2,1),
+    filter .4s ease;
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.04) 0%,
+      rgba(0,0,0,.08) 38%,
+      rgba(0,0,0,.62) 100%
+    );
+}
+
+
+/* ==================================================
+   IMAGE LABEL
+================================================== */
+
+#TrackCommunityCTA-{{ section.id }} .tcc-image-label {
+  position: absolute;
+
+  z-index: 4;
+
+  top: 22px;
+  left: 24px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+  font-size: 8px;
+
+  letter-spacing: .13em;
+
+  text-transform: uppercase;
+
+  color: #fff;
+}
+
+
+/* ==================================================
+   BIG IMAGE STATEMENT
+================================================== */
+
+#TrackCommunityCTA-{{ section.id }} .tcc-image-statement {
+  position: absolute;
+
+  z-index: 4;
+
+  left: 28px;
+  bottom: 180px;
+
+  max-width: 900px;
+
+  color: #fff;
+
+  font-size:
+    clamp(
+      54px,
+      6vw,
+      112px
+    );
+
+  line-height: .84;
+
+  font-weight: 500;
+
+  letter-spacing: -.067em;
+
+  text-transform: uppercase;
+}
+
+
+/* ==================================================
+   STATS
+================================================== */
+
+#TrackCommunityCTA-{{ section.id }} .tcc-stats {
+  position: absolute;
+
+  z-index: 5;
+
+  right: 24px;
+  bottom: 26px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(120px, 1fr));
+
+  min-width: 500px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.45);
+
+  background:
+    rgba(10,10,10,.55);
+
+  backdrop-filter: blur(12px);
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-stat {
+  min-height: 120px;
+
+  padding: 18px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  border-right:
+    1px solid
+    rgba(255,255,255,.3);
+
+  color: #fff;
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-stat:last-child {
+  border-right: 0;
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-stat-number {
+  font-size:
+    clamp(
+      28px,
+      3vw,
+      54px
+    );
+
+  line-height: 1;
+
+  letter-spacing: -.05em;
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-stat-label {
+  font-size: 8px;
+
+  letter-spacing: .13em;
+
+  text-transform: uppercase;
+
+  opacity: .66;
+}
+
+
+/* ==================================================
+   IMAGE CTA
+================================================== */
+
+#TrackCommunityCTA-{{ section.id }} .tcc-image-cta {
+  position: absolute;
+
+  z-index: 5;
+
+  left: 28px;
+  bottom: 28px;
+
+  min-width: 195px;
+  min-height: 50px;
+
+  padding:
+    0 16px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 24px;
+
+  background: var(--tcc-accent);
+
+  color: #000;
+
+  border: 1px solid #000;
+
+  text-decoration: none;
+
+  font-size: 9px;
+
+  letter-spacing: .11em;
+
+  text-transform: uppercase;
+
+  transition:
+    transform .3s ease,
+    background .3s ease;
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-image-cta:hover {
+  transform: translateY(-4px);
+
+  background: #fff;
+}
+
+
+/* ==================================================
+   IMAGE HOVER
+================================================== */
+
+@media (hover:hover) {
+
+  #TrackCommunityCTA-{{ section.id }}
+  .tcc-visual:hover
+  .tcc-image {
+
+    transform: scale(1.04);
+
+    filter: saturate(1.05);
+  }
+
+}
+
+
+/* ==================================================
+   MOVEMENT STRIP
+================================================== */
+
+#TrackCommunityCTA-{{ section.id }} .tcc-strip {
+  overflow: hidden;
+
+  background: var(--tcc-accent);
+
+  color: #000;
+
+  border-bottom:
+    1px solid
+    var(--tcc-border);
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-strip-track {
+  display: flex;
+
+  width: max-content;
+
+  animation:
+    tccMarquee-{{ section.id }}
+    27s linear infinite;
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-strip-group {
+  display: flex;
+
+  align-items: center;
+
+  flex-shrink: 0;
+
+  min-height: 78px;
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-strip-group span {
+  white-space: nowrap;
+
+  font-size:
+    clamp(
+      28px,
+      2.5vw,
+      48px
+    );
+
+  line-height: 1;
+
+  letter-spacing: -.045em;
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-strip-star {
+  margin:
+    0 25px;
+
+  font-size: 18px !important;
+}
+
+
+@keyframes tccMarquee-{{ section.id }} {
+
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+
+}
+
+
+/* ==================================================
+   BOTTOM
+================================================== */
+
+#TrackCommunityCTA-{{ section.id }} .tcc-bottom {
+  min-height: 135px;
+
+  padding:
+    22px 30px;
+
+  display: grid;
+
+  grid-template-columns:
+    260px
+    minmax(0,1fr)
+    70px;
+
+  align-items: center;
+
+  gap: 30px;
+
+  background: var(--tcc-bg);
+
+  border-bottom:
+    1px solid
+    var(--tcc-border);
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-bottom-small {
+  font-size: 9px;
+
+  line-height: 1.3;
+
+  letter-spacing: .13em;
+
+  text-transform: uppercase;
+
+  color: var(--tcc-muted);
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-bottom-main {
+  font-size:
+    clamp(
+      30px,
+      3.2vw,
+      60px
+    );
+
+  line-height: .94;
+
+  font-weight: 500;
+
+  letter-spacing: -.05em;
+}
+
+
+#TrackCommunityCTA-{{ section.id }} .tcc-bottom-circle {
+  width: 58px;
+  height: 58px;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: var(--tcc-accent);
+
+  color: #000;
+
+  font-size: 25px;
+
+  transition:
+    transform .3s ease;
+}
+
+
+#TrackCommunityCTA-{{ section.id }}
+.tcc-bottom:hover
+.tcc-bottom-circle {
+
+  transform: rotate(90deg);
+}
+
+
+/* ==================================================
+   TABLET
+================================================== */
+
+@media screen and (max-width: 989px) {
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-head {
+    grid-template-columns: 1fr;
+
+    gap: 24px;
+
+    padding:
+      54px 20px
+      30px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-head-right {
+    max-width: 520px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-visual {
+    min-height: 720px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-stats {
+    left: 20px;
+    right: 20px;
+
+    min-width: 0;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-image-statement {
+    left: 20px;
+
+    bottom: 190px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-image-cta {
+    left: 20px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-bottom {
+    grid-template-columns:
+      190px
+      1fr
+      60px;
+
+    padding: 20px;
+  }
+
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media screen and (max-width: 749px) {
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-head {
+    padding:
+      42px 16px
+      24px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-heading {
+    font-size:
+      clamp(
+        50px,
+        15vw,
+        76px
+      );
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-intro {
+    font-size: 14px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-main-button {
+    min-width: 210px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-visual {
+    min-height: 760px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-image-label {
+    top: 14px;
+    left: 16px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-image-statement {
+    left: 16px;
+    right: 16px;
+
+    bottom: 330px;
+
+    font-size:
+      clamp(
+        44px,
+        13vw,
+        66px
+      );
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-stats {
+    left: 16px;
+    right: 16px;
+    bottom: 88px;
+
+    grid-template-columns: 1fr;
+
+    min-width: 0;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-stat {
+    min-height: 70px;
+
+    padding: 12px 14px;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    border-right: 0;
+
+    border-bottom:
+      1px solid
+      rgba(255,255,255,.25);
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-stat:last-child {
+    border-bottom: 0;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-stat-number {
+    font-size: 28px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-image-cta {
+    left: 16px;
+    bottom: 20px;
+
+    min-width: 180px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-strip-group {
+    min-height: 58px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-strip-group span {
+    font-size: 23px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-strip-star {
+    margin:
+      0 17px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-bottom {
+    grid-template-columns:
+      1fr auto;
+
+    gap: 16px;
+
+    padding:
+      22px 16px;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-bottom-small {
+    grid-column: 1 / -1;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-bottom-main {
+    font-size:
+      clamp(
+        28px,
+        9vw,
+        42px
+      );
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-bottom-circle {
+    width: 48px;
+    height: 48px;
+
+    font-size: 20px;
+  }
+
+}
+
+
+/* ==================================================
+   REDUCED MOTION
+================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-image,
+  #TrackCommunityCTA-{{ section.id }} .tcc-main-button,
+  #TrackCommunityCTA-{{ section.id }} .tcc-main-button-circle {
+
+    transition: none;
+  }
+
+
+  #TrackCommunityCTA-{{ section.id }} .tcc-strip-track {
+
+    animation: none;
+  }
+
+}
+
+</style>
+
+
+{% schema %}
+{
+  "name": "Track Community CTA",
+  "tag": "section",
+  "class": "track-community-cta-section",
+
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "TRACK&TREAD COMMUNITY"
+    },
+
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "MOVE TOGETHER. GO FURTHER."
+    },
+
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro",
+      "default": "<p>Movement feels different when it becomes something we share. Join a community built around training, progress and showing up again.</p>"
+    },
+
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Main button label",
+      "default": "JOIN THE MOVEMENT"
+    },
+
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Main button link"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Campaign image"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Community image"
+    },
+
+    {
+      "type": "text",
+      "id": "image_statement",
+      "label": "Image statement",
+      "default": "ONE COMMUNITY. ENDLESS WAYS TO MOVE."
+    },
+
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Image button label",
+      "default": "DISCOVER THE COMMUNITY"
+    },
+
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Image button link"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Stat 1"
+    },
+
+    {
+      "type": "text",
+      "id": "stat_one_number",
+      "label": "Number",
+      "default": "10K+"
+    },
+
+    {
+      "type": "text",
+      "id": "stat_one_label",
+      "label": "Label",
+      "default": "MOVERS"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Stat 2"
+    },
+
+    {
+      "type": "text",
+      "id": "stat_two_number",
+      "label": "Number",
+      "default": "25+"
+    },
+
+    {
+      "type": "text",
+      "id": "stat_two_label",
+      "label": "Label",
+      "default": "CITIES"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Stat 3"
+    },
+
+    {
+      "type": "text",
+      "id": "stat_three_number",
+      "label": "Number",
+      "default": "01"
+    },
+
+    {
+      "type": "text",
+      "id": "stat_three_label",
+      "label": "Label",
+      "default": "COMMUNITY"
+    },
+
+
+    {
+      "type": "checkbox",
+      "id": "show_movement_strip",
+      "label": "Show moving statement strip",
+      "default": true
+    },
+
+
+    {
+      "type": "text",
+      "id": "bottom_small",
+      "label": "Bottom small text",
+      "default": "TRACK&TREAD / COMMUNITY"
+    },
+
+    {
+      "type": "text",
+      "id": "bottom_large",
+      "label": "Bottom main text",
+      "default": "YOUR NEXT MOVE STARTS HERE."
+    },
+
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#080808"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#FFFFFF"
+    },
+
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#9B9B9B"
+    },
+
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Borders",
+      "default": "#2B2B2B"
+    },
+
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#C7FF00"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Track Community CTA"
+    }
+  ]
+}
+{% endschema %}

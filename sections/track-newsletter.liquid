@@ -1,0 +1,902 @@
+<section
+  id="TrackNewsletter-{{ section.id }}"
+  class="track-newsletter"
+  style="
+    --tn-bg: {{ section.settings.background_color }};
+    --tn-text: {{ section.settings.text_color }};
+    --tn-accent: {{ section.settings.accent_color }};
+    --tn-border: {{ section.settings.border_color }};
+    --tn-muted: {{ section.settings.muted_color }};
+  "
+>
+
+  <div class="tn-layout">
+
+    <!-- LEFT -->
+    <div class="tn-main">
+
+      <div class="tn-top">
+
+        {% if section.settings.eyebrow != blank %}
+          <div class="tn-eyebrow">
+            <span class="tn-dot"></span>
+            {{ section.settings.eyebrow }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h2 class="tn-heading">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+
+      </div>
+
+
+      <div class="tn-main-bottom">
+
+        {% if section.settings.intro != blank %}
+          <div class="tn-intro">
+            {{ section.settings.intro }}
+          </div>
+        {% endif %}
+
+
+        {% form 'customer', class: 'tn-form' %}
+
+          <input
+            type="hidden"
+            name="contact[tags]"
+            value="newsletter"
+          >
+
+          <div class="tn-input-wrap">
+
+            <input
+              id="TrackNewsletterEmail-{{ section.id }}"
+              class="tn-input"
+              type="email"
+              name="contact[email]"
+              value="{{ form.email }}"
+              placeholder="{{ section.settings.placeholder }}"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              required
+            >
+
+            <button
+              type="submit"
+              class="tn-submit"
+              aria-label="Subscribe"
+            >
+              <span class="tn-submit-text">
+                {{ section.settings.button_label }}
+              </span>
+
+              <span class="tn-submit-circle">
+                →
+              </span>
+            </button>
+
+          </div>
+
+
+          {% if form.posted_successfully? %}
+            <div class="tn-message tn-message--success">
+              <span>✓</span>
+              <span>{{ section.settings.success_text }}</span>
+            </div>
+          {% endif %}
+
+
+          {% if form.errors %}
+            <div class="tn-message tn-message--error">
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
+
+        {% endform %}
+
+
+        {% if section.settings.note != blank %}
+          <p class="tn-note">
+            {{ section.settings.note }}
+          </p>
+        {% endif %}
+
+      </div>
+
+    </div>
+
+
+    <!-- RIGHT -->
+    <aside class="tn-offer">
+
+      <div class="tn-offer-top">
+
+        <span class="tn-offer-label">
+          {{ section.settings.offer_label }}
+        </span>
+
+        <span class="tn-offer-index">
+          01 / MEMBER BENEFIT
+        </span>
+
+      </div>
+
+
+      <div class="tn-offer-content">
+
+        {% if section.settings.offer_heading != blank %}
+          <h3 class="tn-offer-heading">
+            {{ section.settings.offer_heading }}
+          </h3>
+        {% endif %}
+
+
+        {% if section.settings.offer_text != blank %}
+          <p class="tn-offer-text">
+            {{ section.settings.offer_text }}
+          </p>
+        {% endif %}
+
+      </div>
+
+
+      <div class="tn-offer-footer">
+
+        <div class="tn-code-block">
+
+          <span class="tn-code-label">
+            {{ section.settings.code_label }}
+          </span>
+
+          <strong class="tn-code">
+            {{ section.settings.discount_code }}
+          </strong>
+
+        </div>
+
+
+        <div class="tn-offer-circle">
+          %
+        </div>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+
+  {% if section.settings.show_strip %}
+    <div class="tn-strip">
+
+      <div class="tn-strip-track">
+
+        {% for repeat in (1..2) %}
+          <div class="tn-strip-group">
+
+            <span>NEW DROPS</span>
+            <span class="tn-strip-dot">✦</span>
+
+            <span>MEMBER OFFERS</span>
+            <span class="tn-strip-dot">✦</span>
+
+            <span>TRAINING NOTES</span>
+            <span class="tn-strip-dot">✦</span>
+
+            <span>COMMUNITY STORIES</span>
+            <span class="tn-strip-dot">✦</span>
+
+            <span>TRACK&TREAD</span>
+            <span class="tn-strip-dot">✦</span>
+
+          </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  {% endif %}
+
+</section>
+
+
+<style>
+
+#TrackNewsletter-{{ section.id }} {
+  background: var(--tn-bg);
+  color: var(--tn-text);
+  overflow: hidden;
+
+  border-top: 1px solid var(--tn-border);
+}
+
+
+/* LAYOUT */
+
+#TrackNewsletter-{{ section.id }} .tn-layout {
+  display: grid;
+  grid-template-columns: 64% 36%;
+
+  min-height: 720px;
+}
+
+
+/* LEFT */
+
+#TrackNewsletter-{{ section.id }} .tn-main {
+  padding: 68px 30px 34px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  border-right: 1px solid var(--tn-border);
+}
+
+
+/* EYEBROW */
+
+#TrackNewsletter-{{ section.id }} .tn-eyebrow {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 14px;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: .18em;
+  text-transform: uppercase;
+
+  color: var(--tn-muted);
+}
+
+#TrackNewsletter-{{ section.id }} .tn-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--tn-accent);
+}
+
+
+/* HEADING */
+
+#TrackNewsletter-{{ section.id }} .tn-heading {
+  margin: 0;
+
+  max-width: 1000px;
+
+  font-size: clamp(70px, 7.5vw, 150px);
+  line-height: .8;
+
+  font-weight: 500;
+  letter-spacing: -.075em;
+}
+
+
+/* BOTTOM */
+
+#TrackNewsletter-{{ section.id }} .tn-main-bottom {
+  max-width: 900px;
+
+  margin-top: 80px;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-intro {
+  max-width: 540px;
+
+  margin-bottom: 30px;
+
+  font-size: 16px;
+  line-height: 1.5;
+
+  color: var(--tn-muted);
+}
+
+#TrackNewsletter-{{ section.id }} .tn-intro p {
+  margin: 0;
+}
+
+
+/* FORM */
+
+#TrackNewsletter-{{ section.id }} .tn-form {
+  width: 100%;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-input-wrap {
+  display: grid;
+  grid-template-columns: 1fr auto;
+
+  border-bottom: 1px solid var(--tn-text);
+}
+
+#TrackNewsletter-{{ section.id }} .tn-input {
+  width: 100%;
+  min-height: 78px;
+
+  padding: 0 10px 0 0;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+  color: var(--tn-text);
+
+  font: inherit;
+
+  font-size: clamp(22px, 2.3vw, 40px);
+  letter-spacing: -.035em;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-input::placeholder {
+  color: var(--tn-muted);
+  opacity: .6;
+}
+
+
+/* SUBMIT */
+
+#TrackNewsletter-{{ section.id }} .tn-submit {
+  appearance: none;
+
+  min-width: 190px;
+
+  padding: 0 0 0 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  border: 0;
+
+  background: transparent;
+  color: inherit;
+
+  cursor: pointer;
+
+  font: inherit;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-submit-circle {
+  width: 54px;
+  height: 54px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--tn-accent);
+  color: #000;
+
+  border: 1px solid #000;
+
+  font-size: 20px;
+
+  transition:
+    transform .3s ease,
+    background .3s ease;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-submit:hover .tn-submit-circle {
+  transform: translateX(5px) rotate(-10deg);
+
+  background: #fff;
+}
+
+
+/* MESSAGE */
+
+#TrackNewsletter-{{ section.id }} .tn-message {
+  margin-top: 15px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  font-size: 12px;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-message--success {
+  color: var(--tn-accent);
+}
+
+#TrackNewsletter-{{ section.id }} .tn-message--error {
+  color: #ff5a5a;
+}
+
+
+/* NOTE */
+
+#TrackNewsletter-{{ section.id }} .tn-note {
+  margin: 14px 0 0;
+
+  font-size: 9px;
+
+  letter-spacing: .09em;
+  text-transform: uppercase;
+
+  color: var(--tn-muted);
+}
+
+
+/* RIGHT OFFER */
+
+#TrackNewsletter-{{ section.id }} .tn-offer {
+  min-height: 720px;
+
+  padding: 26px 24px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background: var(--tn-accent);
+  color: #000;
+}
+
+
+/* OFFER TOP */
+
+#TrackNewsletter-{{ section.id }} .tn-offer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  font-size: 8px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-offer-label {
+  padding: 7px 10px;
+
+  border: 1px solid #000;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-offer-index {
+  opacity: .6;
+}
+
+
+/* OFFER CONTENT */
+
+#TrackNewsletter-{{ section.id }} .tn-offer-content {
+  margin: auto 0;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-offer-heading {
+  margin: 0;
+
+  max-width: 520px;
+
+  font-size: clamp(54px, 5vw, 92px);
+  line-height: .85;
+
+  font-weight: 500;
+  letter-spacing: -.065em;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-offer-text {
+  max-width: 390px;
+
+  margin: 24px 0 0;
+
+  font-size: 15px;
+  line-height: 1.45;
+
+  opacity: .72;
+}
+
+
+/* OFFER FOOTER */
+
+#TrackNewsletter-{{ section.id }} .tn-offer-footer {
+  padding-top: 22px;
+
+  border-top: 1px solid rgba(0,0,0,.28);
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-code-block {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-code-label {
+  font-size: 8px;
+
+  letter-spacing: .12em;
+  text-transform: uppercase;
+
+  opacity: .55;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-code {
+  font-size: clamp(28px, 3vw, 48px);
+
+  line-height: 1;
+
+  font-weight: 500;
+  letter-spacing: -.04em;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-offer-circle {
+  width: 68px;
+  height: 68px;
+
+  flex: 0 0 auto;
+
+  border-radius: 50%;
+
+  border: 1px solid #000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+
+  transition: transform .35s ease;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-offer:hover .tn-offer-circle {
+  transform: rotate(20deg) scale(1.06);
+}
+
+
+/* STRIP */
+
+#TrackNewsletter-{{ section.id }} .tn-strip {
+  overflow: hidden;
+
+  background: #000;
+  color: var(--tn-accent);
+
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-strip-track {
+  display: flex;
+
+  width: max-content;
+
+  animation:
+    tnMarquee-{{ section.id }}
+    28s linear infinite;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-strip-group {
+  display: flex;
+  flex-shrink: 0;
+
+  align-items: center;
+
+  min-height: 68px;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-strip-group span {
+  white-space: nowrap;
+
+  font-size: clamp(24px, 2vw, 38px);
+  line-height: 1;
+
+  letter-spacing: -.04em;
+}
+
+#TrackNewsletter-{{ section.id }} .tn-strip-dot {
+  margin: 0 24px;
+}
+
+@keyframes tnMarquee-{{ section.id }} {
+
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+
+}
+
+
+/* TABLET */
+
+@media screen and (max-width: 989px) {
+
+  #TrackNewsletter-{{ section.id }} .tn-layout {
+    grid-template-columns: 1fr;
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-main {
+    min-height: 650px;
+
+    border-right: 0;
+    border-bottom: 1px solid var(--tn-border);
+
+    padding: 54px 20px 30px;
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-offer {
+    min-height: 600px;
+  }
+
+}
+
+
+/* MOBILE */
+
+@media screen and (max-width: 749px) {
+
+  #TrackNewsletter-{{ section.id }} .tn-main {
+    min-height: 580px;
+
+    padding: 42px 16px 28px;
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-heading {
+    font-size: clamp(54px, 16vw, 82px);
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-main-bottom {
+    margin-top: 60px;
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-intro {
+    font-size: 14px;
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-input-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-input {
+    min-height: 66px;
+
+    font-size: 24px;
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-submit {
+    width: 100%;
+
+    min-height: 64px;
+    min-width: 0;
+
+    padding-left: 0;
+
+    border-top: 1px solid rgba(255,255,255,.15);
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-offer {
+    min-height: 520px;
+
+    padding: 20px 16px;
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-offer-heading {
+    font-size: clamp(48px, 14vw, 72px);
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-code {
+    font-size: 32px;
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-offer-circle {
+    width: 54px;
+    height: 54px;
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-strip-group {
+    min-height: 54px;
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-strip-group span {
+    font-size: 22px;
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-strip-dot {
+    margin: 0 17px;
+  }
+
+}
+
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+
+  #TrackNewsletter-{{ section.id }} .tn-strip-track {
+    animation: none;
+  }
+
+  #TrackNewsletter-{{ section.id }} .tn-submit-circle,
+  #TrackNewsletter-{{ section.id }} .tn-offer-circle {
+    transition: none;
+  }
+
+}
+
+</style>
+
+
+{% schema %}
+{
+  "name": "Track Newsletter",
+  "tag": "section",
+  "class": "track-newsletter-section",
+
+  "settings": [
+
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "STAY CONNECTED"
+    },
+
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "STAY IN THE LOOP"
+    },
+
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro",
+      "default": "<p>New drops, training notes, community stories and member-only offers — delivered when they matter.</p>"
+    },
+
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Email placeholder",
+      "default": "Enter your email address"
+    },
+
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "JOIN THE LIST"
+    },
+
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Privacy note",
+      "default": "No spam. Unsubscribe anytime."
+    },
+
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Success message",
+      "default": "You're in. Welcome to the movement."
+    },
+
+
+    {
+      "type": "header",
+      "content": "Offer panel"
+    },
+
+    {
+      "type": "text",
+      "id": "offer_label",
+      "label": "Offer label",
+      "default": "FIRST MOVE"
+    },
+
+    {
+      "type": "text",
+      "id": "offer_heading",
+      "label": "Offer heading",
+      "default": "GET 10% OFF YOUR FIRST ORDER"
+    },
+
+    {
+      "type": "textarea",
+      "id": "offer_text",
+      "label": "Offer text",
+      "default": "Join the Track&Tread list and unlock a welcome offer for your first move."
+    },
+
+    {
+      "type": "text",
+      "id": "code_label",
+      "label": "Code label",
+      "default": "WELCOME CODE"
+    },
+
+    {
+      "type": "text",
+      "id": "discount_code",
+      "label": "Discount code",
+      "default": "FIRSTMOVE10"
+    },
+
+
+    {
+      "type": "checkbox",
+      "id": "show_strip",
+      "label": "Show moving bottom strip",
+      "default": true
+    },
+
+
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#080808"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#FFFFFF"
+    },
+
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#9B9B9B"
+    },
+
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Borders",
+      "default": "#2B2B2B"
+    },
+
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#C7FF00"
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Track Newsletter"
+    }
+  ]
+}
+{% endschema %}
